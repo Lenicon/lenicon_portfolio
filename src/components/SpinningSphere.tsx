@@ -15,11 +15,9 @@ function Scene() {
         const mesh = child as THREE.Mesh;
         const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
 
-        // Map existing materials into MeshBasicMaterial to bypass lighting
         const basicMaterials = materials.map((mat) => {
           const standardMat = mat as THREE.MeshStandardMaterial;
 
-          // Configure the texture filtering if a texture map exists
           if (standardMat.map) {
             standardMat.map.minFilter = THREE.NearestFilter;
             standardMat.map.magFilter = THREE.NearestFilter;
@@ -27,7 +25,6 @@ function Scene() {
             standardMat.map.needsUpdate = true;
           }
 
-          // Create flat basic material using the original color and texture map
           return new THREE.MeshBasicMaterial({
             map: standardMat.map,
             color: standardMat.color,
@@ -38,16 +35,31 @@ function Scene() {
           });
         });
 
-        // Reassign the unlit basic material back to the mesh
         mesh.material = basicMaterials.length === 1 ? basicMaterials[0] : basicMaterials;
       }
     });
   }, [scene]);
 
+  const animProgressRef = useRef(0);
+
   useFrame((state, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.5;
-    }
+    if (!meshRef.current) return;
+
+    if (state.clock.getElapsedTime() < 1.0) return;
+
+    animProgressRef.current += delta * 0.5; // speed of spin
+
+    const currentSegment = Math.floor(animProgressRef.current);
+    const segmentProgress = animProgressRef.current % 1;
+
+    const spinWindow = 0.35;  // time to pause
+    const adjustedProgress = Math.min(segmentProgress / spinWindow, 1.0);
+
+    const smoothSpin = adjustedProgress * adjustedProgress * (3 - 2 * adjustedProgress);
+
+    const targetRotation = (currentSegment + smoothSpin) * Math.PI;
+
+    meshRef.current.rotation.y = targetRotation;
   });
 
   return (
@@ -65,7 +77,7 @@ export default function SpinningSphere() {
   return (
     <div className="w-full h-full">
       <Canvas
-        camera={{ position: [0, 0, 4], fov: 45 }}
+        camera={{ position: [0, 0, -4], fov: 45 }}
         gl={{toneMapping: THREE.NoToneMapping }}
         flat
         >

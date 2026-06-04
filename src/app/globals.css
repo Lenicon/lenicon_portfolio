@@ -3,6 +3,7 @@
 :root {
   --background: #100b27;
   --foreground: #fff;
+  --yellow: #f5d151;
 }
 
 
@@ -14,12 +15,13 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #100b27;
     --foreground: #fff;
   }
-}
+} */
 
 body {
   background: var(--background);
