@@ -67,7 +67,7 @@ export default function Hero() {
           <Laptop/>
         </div>
 
-        <div className="absolute bottom-0 sm:bottom-0 md:bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--blue)] font-upheaval tracking-[0.1em] text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--blue)] font-upheaval tracking-[0.1em] text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
           PROJECTS
         </div>
       </Link>
@@ -82,7 +82,7 @@ export default function Hero() {
           <Mail/>
         </div>
 
-        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--pink)] font-upheaval tracking-[0.1em] text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
+        <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--pink)] font-upheaval tracking-[0.1em] text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
           CONTACTS
         </div>
       </Link>

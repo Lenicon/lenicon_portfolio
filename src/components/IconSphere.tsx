@@ -73,7 +73,7 @@ function Scene({ isHovered }:{ isHovered: boolean }) {
     }
 
     const mouseTargetX = isHovered ? -0.05 : globalMouseRef.current.y * -0.3; 
-    const mouseTargetY = isHovered ? 0.042 : globalMouseRef.current.x * 0.35;
+    const mouseTargetY = isHovered ? 0.042 : globalMouseRef.current.x * 0.35 - 0.15;
 
     const finalTargetX = mouseTargetX;
     const finalTargetY = targetRotationRef.current + mouseTargetY;

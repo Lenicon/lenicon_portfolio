@@ -60,7 +60,7 @@ function MailScene({ isHovered }: { isHovered: boolean }) {
       }
 
       // to twist or not to twist
-      const targetX = isHovered ? 0.3 : Math.sin(time * 2.5) * 0.4 + Math.cos(time * 1.2) * 0.15;
+      const targetX = isHovered ? 0.7 : Math.sin(time * 2.5) * 0.4 + Math.cos(time * 1.2) * 0.15;
       const targetY = continuousYRef.current;
       const targetZ = isHovered ? 0 : Math.sin(time * 2.0) * 0.25;
       const targetPosY = isHovered ? 0 : Math.sin(time * 2.2) * 0.08;
