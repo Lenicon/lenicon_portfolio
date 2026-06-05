@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import Laptop from './Laptop';
 import Link from 'next/link';
+import Mail from './Mail';
 
 const IconSphere = dynamic(() => import('./IconSphere'), {
   ssr: false,
@@ -68,6 +69,21 @@ export default function Hero() {
 
         <div className="absolute bottom-0 sm:bottom-0 md:bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--blue)] font-upheaval tracking-[0.1em] text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
           PROJECTS
+        </div>
+      </Link>
+
+
+      {/* MAIL */}
+      <Link 
+        href="/contacts" 
+        className="group absolute top-4 left-4 sm:top-8 sm:left-8 md:top-12 md:left-12 block"
+      >
+        <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 flex items-center justify-center overflow-visible">
+          <Mail/>
+        </div>
+
+        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--pink)] font-upheaval tracking-[0.1em] text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
+          CONTACTS
         </div>
       </Link>
 

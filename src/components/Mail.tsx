@@ -6,10 +6,11 @@ import * as THREE from 'three';
 import { Center, useGLTF } from '@react-three/drei';
 
 
-function LaptopScene({ isHovered }: { isHovered: boolean }) {
-  const { scene } = useGLTF('/models/laptop.glb');
+function MailScene({ isHovered }: { isHovered: boolean }) {
+  const { scene } = useGLTF('/models/mail.glb');
   
-  const lidRef = useRef<THREE.Object3D | null>(null);
+  const coverRef = useRef<THREE.Object3D | null>(null);
+  const paperRef = useRef<THREE.Object3D | null>(null);
   const tumbleRef = useRef<THREE.Group>(null);
   const continuousYRef = useRef(0);
 
@@ -39,9 +40,9 @@ function LaptopScene({ isHovered }: { isHovered: boolean }) {
         mesh.material = basicMaterials.length === 1 ? basicMaterials[0] : basicMaterials;
       }
 
-      if (child.name === 'lid') {
-        lidRef.current = child;
-      }
+      if (child.name === 'cover') coverRef.current = child;
+      if (child.name === 'paper') paperRef.current = child;
+
     });
   }, [scene]);
 
@@ -64,22 +65,39 @@ function LaptopScene({ isHovered }: { isHovered: boolean }) {
       const targetZ = isHovered ? 0 : Math.sin(time * 2.0) * 0.25;
       const targetPosY = isHovered ? 0 : Math.sin(time * 2.2) * 0.08;
 
-      // laptop twisty turny
+      // twisty turny
       tumbleRef.current.rotation.x = THREE.MathUtils.lerp(tumbleRef.current.rotation.x, targetX, delta * 6);
       tumbleRef.current.rotation.y = THREE.MathUtils.lerp(tumbleRef.current.rotation.y, targetY, delta * 6);
       tumbleRef.current.rotation.z = THREE.MathUtils.lerp(tumbleRef.current.rotation.z, targetZ, delta * 6);
       tumbleRef.current.position.y = THREE.MathUtils.lerp(tumbleRef.current.position.y, targetPosY, delta * 6);
     }
 
-    if (!lidRef.current) return;
 
-    const targetLidRotation = isHovered ? -Math.PI * 0.1 : 1.2;
+    // COVER MOVEMENT
+    if (!coverRef.current) return;
 
-    lidRef.current.rotation.x = THREE.MathUtils.lerp(
-      lidRef.current.rotation.x,
-      targetLidRotation,
-      delta * 9
+    const targetCoverRotation = isHovered ? -Math.PI * 0.1 : 2.9;
+    const coverSpeed = isHovered ? 20 : 9;
+
+    coverRef.current.rotation.z = THREE.MathUtils.lerp(
+      coverRef.current.rotation.z,
+      targetCoverRotation,
+      delta * coverSpeed
     );
+
+
+    // PAPER MOVEMENT
+    if (!paperRef.current) return;
+    const targetPaperPositionY = isHovered ? 0.4 : 0;
+    const paperSpeed = isHovered ? 7 : 20;
+
+    paperRef.current.position.y = THREE.MathUtils.lerp(
+      paperRef.current.position.y,
+      targetPaperPositionY,
+      delta * paperSpeed
+    );
+
+
   });
 
   return (
@@ -91,7 +109,7 @@ function LaptopScene({ isHovered }: { isHovered: boolean }) {
   );
 }
 
-export default function Laptop() {
+export default function Mail() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -100,14 +118,14 @@ export default function Laptop() {
       onPointerOut={() => setIsHovered(false)}
     >
       <Canvas
-        camera={{ position: [0, 0, 4], fov: 45 }}
+        camera={{ position: [0, -2, 4], fov: 45 }}
         gl={{ toneMapping: THREE.NoToneMapping }}
         flat
       >
-        <LaptopScene isHovered={isHovered} />
+        <MailScene isHovered={isHovered} />
       </Canvas>
     </div>
   );
 }
 
-useGLTF.preload('/models/laptop.glb');
+useGLTF.preload('/models/mail.glb');
