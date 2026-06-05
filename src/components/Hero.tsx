@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import Laptop from './Laptop';
 import Link from 'next/link';
 import Mail from './Mail';
+import PetManager from './Pets/PetManager';
 
 const IconSphere = dynamic(() => import('./IconSphere'), {
   ssr: false,
@@ -18,14 +19,44 @@ export default function Hero() {
 
       <div className="flex flex-row items-center justify-center gap-4 sm:gap-8 md:gap-12 max-w-full">
         
-        <h1 className="text-9xl sm:text-[12rem] md:text-[15rem] lg:text-[20rem] font-upheaval text-[var(--yellow)] leading-none m-0 p-0">
-          LEN
-        </h1>
+        <div className="relative inline-block select-none">
+          <h1 className="text-9xl sm:text-[12rem] md:text-[15rem] lg:text-[20rem] font-upheaval text-[var(--yellow)] leading-none m-0 p-0 pointer-events-none">
+            LEN
+          </h1>
+          
+          {/* CUSTOM COLLIDERS*/}
+          <div 
+            data-platform="true" 
+            className="absolute w-[11.1%] left-0 h-5 top-[30%]" 
+          />
+          <div 
+            data-platform="true" 
+            className="absolute w-[19.5%] left-[11%] h-5 top-[70%]" 
+          />
+
+          <div 
+            data-platform="true" 
+            className="absolute w-[28%] left-[36%] h-5 top-[30%]" 
+          />
+          <div 
+            data-platform="true" 
+            className="absolute w-[20%] left-[44%] h-5 top-[70%]" 
+          />
+
+          <div 
+            data-platform="true" 
+            className="absolute w-[11.5%] left-[66.5%] h-5 top-[30%]" 
+          />
+          <div 
+            data-platform="true" 
+            className="absolute w-[11.5%] left-[86%] h-5 top-[30%]" 
+          />
+        </div>
         
 
         {/* ICON SPHERE */}
         <Link href="/about" className="group block relative">
-          <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-[350px] lg:h-[350px] items-center justify-center overflow-visible">
+          <div data-platform="sphere" className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-[350px] lg:h-[350px] items-center justify-center overflow-visible">
             <IconSphere />
             
           </div>
@@ -86,6 +117,10 @@ export default function Hero() {
           CONTACTS
         </div>
       </Link>
+
+
+
+      <PetManager />
 
     </section>
   );
