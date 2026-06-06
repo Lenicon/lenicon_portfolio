@@ -10,14 +10,14 @@ import Link, { LinkProps } from 'next/link';
 interface TransitionLinkProps extends LinkProps {
   children: React.ReactNode;
   className?: string;
-  color: string;
+  backgroundStyle: string;
 }
 
 export default function TransitionLink({ 
   href, 
   children, 
   className, 
-  color, 
+  backgroundStyle, 
   ...props 
 }: TransitionLinkProps) {
   const router = useRouter();
@@ -60,9 +60,9 @@ export default function TransitionLink({
 
       {isTransitioning && (
         <div 
-          className="fixed inset-0 z-[9995] pointer-events-none animate-circle-wipe"
+          className={"fixed inset-0 z-[9995] pointer-events-none animate-circle-wipe " + backgroundStyle}
           style={{ 
-            backgroundColor: color,
+            // backgroundColor: color,
             ['--click-x' as any]: coords.x,
             ['--click-y' as any]: coords.y,
           }}

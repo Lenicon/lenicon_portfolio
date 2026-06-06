@@ -1,11 +1,17 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import Laptop from './Laptop';
-import Mail from './Mail';
 import PetManager from './Pets/PetManager';
 import TransitionLink from './TransitionLink';
 
+
+const Mail = dynamic(() => import('./Mail'), {
+  ssr: false,
+});
+
+const Laptop = dynamic(() => import('./Laptop'), {
+  ssr: false,
+});
 
 const IconSphere = dynamic(() => import('./IconSphere'), {
   ssr: false,
@@ -28,17 +34,13 @@ export default function Hero() {
           {/* CUSTOM COLLIDERS*/}
           <div 
             data-platform="true" 
-            className="absolute w-[11.1%] left-0 h-5 top-[30%]" 
+            className="absolute w-[14%] -left-2 h-5 top-[30%]" 
           />
           <div 
             data-platform="true" 
-            className="absolute w-[19.5%] left-[11%] h-5 top-[70%]" 
+            className="absolute w-[22%] left-[10%] h-5 top-[70%]" 
           />
 
-          <div 
-            data-platform="true" 
-            className="absolute w-[28%] left-[36%] h-5 top-[30%]" 
-          />
           <div 
             data-platform="true" 
             className="absolute w-[20%] left-[44%] h-5 top-[70%]" 
@@ -46,21 +48,22 @@ export default function Hero() {
 
           <div 
             data-platform="true" 
-            className="absolute w-[11.5%] left-[66.5%] h-5 top-[30%]" 
+            className="absolute w-[46%] left-[34%] h-5 top-[30%]" 
+          />
+
+          <div 
+            data-platform="true" 
+            className="absolute w-[12.5%] left-[75%] h-5 top-[41%] rotate-40" 
           />
           <div 
             data-platform="true" 
-            className="absolute w-[11.5%] left-[86%] h-5 top-[30%]" 
-          />
-          <div 
-            data-platform="true" 
-            className="absolute w-[12%] left-[75%] h-5 top-[41%] rotate-40" 
+            className="absolute w-[13%] left-[86%] h-5 top-[30%]" 
           />
         </div>
         
 
         {/* ICON SPHERE */}
-        <TransitionLink href="/about" className="group block relative" color="var(--yellow)">
+        <TransitionLink href="/about" className="group block relative" backgroundStyle="background-about">
           <div data-platform="sphere" className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-[350px] lg:h-[350px] items-center justify-center overflow-visible">
             <IconSphere />
             
@@ -98,7 +101,7 @@ export default function Hero() {
       <TransitionLink 
         href="/projects" 
         className="group absolute top-4 right-4 sm:top-8 sm:right-8 md:top-12 md:right-12 block"
-        color="var(--blue)"
+        backgroundStyle="background-projects"
       >
         <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 flex items-center justify-center overflow-visible">
           <Laptop/>
@@ -114,7 +117,7 @@ export default function Hero() {
       <TransitionLink 
         href="/contacts" 
         className="group absolute top-4 left-4 sm:top-8 sm:left-8 md:top-12 md:left-12 block"
-        color="var(--pink)"
+        backgroundStyle="background-contacts"
       >
         <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 flex items-center justify-center overflow-visible">
           <Mail/>

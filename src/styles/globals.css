@@ -4,8 +4,11 @@
   --background: #100b27;
   --foreground: #fff;
   --yellow: #f5d151;
+  --yellow2: #f5c151;
   --blue: #76bcff;
+  --blue2: #76a8ff;
   --pink: #ff9f9f;
+  --pink2: #ff8f8f;
   --brown: #120c08;
 }
 
@@ -15,19 +18,27 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden; 
-  overscroll-behavior: none;
+  min-width: 100vw;
+  min-height: 100vh;
 }
 
 body {
   color: var(--foreground);
-  font-family: var(--font-upheaval);
 }
 
+b {
+  font-weight: 600;
+}
+
+a {
+  text-decoration: underline;
+}
 
 /* CUSTOM FONTS */
 @theme {
   --font-upheaval: 'Upheaval', sans-serif;
+  --font-streetyear: 'Street Year', sans-serif;
+  --font-fredoka: 'Fredoka', sans-serif;
 }
 
 @font-face{
@@ -35,4 +46,31 @@ body {
   src: url('/fonts/upheaval.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+
+@font-face{
+  font-family: 'Fredoka';
+  src: url('/fonts/fredoka.ttf') format('truetype');
+}
+
+html, body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* UTILITIES */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

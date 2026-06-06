@@ -10,11 +10,9 @@
 
 @keyframes clicked-item-fade {
   0% {
-    opacity: 1;
     transform: scale(1);
   }
   100% {
-    opacity: 0;
     transform: scale(0);
   }
 }
@@ -25,4 +23,66 @@
 
 .animate-item-fade {
   animation: clicked-item-fade 0.4s ease-in-out forwards;
+}
+
+
+
+
+/* COLORS 
+
+:root {
+  --background: #100b27;
+  --foreground: #fff;
+  --yellow: #f5d151;
+  --blue: #76bcff;
+  --pink: #ff9f9f;
+  --brown: #120c08;
+}
+
+*/
+
+.background-about {
+   background: repeating-linear-gradient(
+			45deg,
+			var(--yellow2) 25%,
+			var(--yellow2) 50%,
+			var(--yellow) 50%,
+			var(--yellow) 75%
+		);
+	background-size: 110px 110px;
+    background-position: right;
+    background-attachment: fixed;
+}
+
+.background-contacts {
+ background-color: var(--pink);
+    background-image: repeating-linear-gradient(
+        45deg, 
+        var(--pink2), 
+        var(--pink2) 20px, 
+        var(--pink) 20px, 
+        var(--pink) 40px
+    );
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    right: -100px;
+    bottom: -100px;
+
+}
+
+.background-projects {
+  background-color: var(--blue);
+    background-image: repeating-linear-gradient(
+        45deg, 
+        var(--blue2), 
+        var(--blue2) 20px, 
+        var(--blue) 20px, 
+        var(--blue) 40px
+    );
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    right: -100px;
+    bottom: -100px;
 }

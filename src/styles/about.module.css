@@ -1,21 +1,30 @@
 .pageContainer {
-    /* BACKGROUND */
-    background-color: #f5d151;
-    opacity: 0.8;
-    background-image: linear-gradient(45deg, #d99d29 25%, transparent 25%, transparent 75%, #d99d29 75%), linear-gradient(-45deg, #d99d29 25%, transparent 25%, transparent 75%, #d99d29 75%);
-    background-size: 64px 64px;
-    animation: bganim linear 10s infinite;
-
     min-height: 100vh;
     min-width: 100vw;
     width: 100%;
     height: 100%;
     color: var(--brown);
-    font-family: var(--font-upheaval);
+    font-family: var(--font-fredoka);
+
+    background: repeating-linear-gradient(
+			45deg,
+			var(--yellow2) 25%,
+			var(--yellow2) 50%,
+			var(--yellow) 50%,
+			var(--yellow) 75%
+		);
+	background-size: 110px 110px;
+    background-position: right;
+    background-attachment: fixed;
+    animation: animateStripes 20s linear infinite;
+
 }
 
 
-@keyframes bganim{
-  from {background-position: 0px 0px}
-  to {background-position: 512px 512px}
+
+
+@keyframes animateStripes {
+  100%{
+    background-position: left;
+  }
 }
