@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Pet from './Pet';
 
 
@@ -15,22 +15,34 @@ interface PetData {
   initialX: number;
 }
 
+
+
 export default function PetManager() {
   const [pets, setPets] = useState<PetData[]>([]);
 
-  const spawnPet = () => {
+  const spawnPet = (id:number = 0) => {
     if (pets.length >= MAX_PETS) return;
 
     const newPet: PetData = {
-      id: Date.now(),
-      name: NAMES[Math.floor(Math.random() * NAMES.length)] + Math.floor(Math.random() * 100),
+      id: id,
+      name: NAMES[Math.floor(Math.random() * NAMES.length)],
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      // Spawn somewhat randomly across the screen width
       initialX: Math.random() * (typeof window !== 'undefined' ? window.innerWidth - 100 : 500)
     };
 
     setPets((prev) => [...prev, newPet]);
   };
+
+  const hasSpawned = useRef(false);
+  useEffect(() => {
+    console.log("Spawning pets...");
+    if (hasSpawned.current) return;
+    for (let i = 0; i < MAX_PETS; i++) {
+        spawnPet(i);
+    }
+    hasSpawned.current = true;
+
+  }, []);
 
   return (
     <>
@@ -41,14 +53,6 @@ export default function PetManager() {
           </div>
         ))}
       </div>
-
-      <button 
-        onClick={spawnPet}
-        disabled={pets.length >= 10}
-        className="absolute bottom-4 right-4 z-50 px-4 py-2 bg-[var(--blue)] text-white font-upheaval rounded text-sm hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {pets.length >= MAX_PETS ? "MAX PETS REACHED" : "SPAWN PET"}
-      </button>
     </>
   );
 }

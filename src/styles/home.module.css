@@ -1,0 +1,18 @@
+
+.pageContainer {
+  image-rendering: pixelated;
+  background: linear-gradient(#100b27b3, #100b27b3), repeat url('/images/space.png'), var(--background);
+  background-size: 441px 243px;
+  animation: bganim linear 10s infinite;
+  background-attachment: fixed;
+  
+  min-height: 100vh;
+  min-width: 100vw;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes bganim{
+  from {background-position: 0px 0px}
+  to {background-position: -441px -243px}
+}

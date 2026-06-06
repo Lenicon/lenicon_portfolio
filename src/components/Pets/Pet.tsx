@@ -5,7 +5,6 @@ import { useState, useEffect, useRef } from 'react';
 const DIALOGUE = ["This is the longest dialogue I could think of, cool I know. testing testing testing testing testing testing", "Hi guys!", "Look at me! I'm a pet!", "Oten"];
 
 // --- PET DIMENSIONS & SCALE ---
-// Adjust the scale to make the pet larger or smaller in the browser.
 const PET_SCALE = 2.5; 
 const BASE_WIDTH = 28;
 const BASE_HEIGHT = 33;
@@ -13,7 +12,6 @@ const BASE_HEIGHT = 33;
 const PET_WIDTH = BASE_WIDTH * PET_SCALE;
 const PET_HEIGHT = BASE_HEIGHT * PET_SCALE;
 
-// The exact pixel coordinates where the mouse should pinch the sprite
 const GRAB_X_ORIGINAL = 13;
 const GRAB_Y_ORIGINAL = 10;
 

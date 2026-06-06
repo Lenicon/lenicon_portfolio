@@ -1,0 +1,28 @@
+
+@keyframes circle-wipe {
+  0% {
+    clip-path: circle(0% at var(--click-x) var(--click-y));
+  }
+  100% {
+    clip-path: circle(150% at var(--click-x) var(--click-y));
+  }
+}
+
+@keyframes clicked-item-fade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.animate-circle-wipe {
+  animation: circle-wipe 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-item-fade {
+  animation: clicked-item-fade 0.4s ease-in-out forwards;
+}
