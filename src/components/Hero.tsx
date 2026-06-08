@@ -69,6 +69,23 @@ export default function Hero() {
             
           </div>
 
+          <div className="absolute -top-14 sm:-top-20 md:-top-24 lg:-top-25 left-1/2 -translate-x-1/2 w-[200%] h-24 sm:h-32 md:h-40 pointer-events-none overflow-visible opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out">
+            <svg viewBox="0 0 500 200" className="w-full h-full overflow-visible">
+              <defs>
+                <path 
+                  id="textCurveTop" 
+                  d="M 25,165 Q 250,45 475,165" 
+                  fill="transparent" 
+                />
+              </defs>
+              <text className="fill-[var(--yellow)] font-upheaval text-[28px] sm:text-[42px] md:text-[52px] lg:text-[64px] tracking-[0.1em]">
+                <textPath href="#textCurveTop" startOffset="50%" textAnchor="middle">
+                  WHO AM I?
+                </textPath>
+              </text>
+            </svg>
+          </div>
+
           <div className="absolute -bottom-16 sm:-bottom-24 md:-bottom-28 lg:-bottom-32 left-1/2 -translate-x-1/2 w-[200%] h-24 sm:h-32 md:h-40 pointer-events-none overflow-visible opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out">
             
             <svg 
@@ -108,7 +125,7 @@ export default function Hero() {
         </div>
 
         <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--blue)] font-upheaval tracking-[0.1em] text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
-          PROJECTS
+          PROJECTS :O
         </div>
       </TransitionLink>
 
@@ -124,7 +141,7 @@ export default function Hero() {
         </div>
 
         <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--pink)] font-upheaval tracking-[0.1em] text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
-          CONTACTS
+          LETTERS {"<3"}
         </div>
       </TransitionLink>
 

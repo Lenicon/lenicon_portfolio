@@ -1,8 +1,10 @@
 'use client';
 
+import { randomIndex } from '@/utils';
 import { useState, useEffect, useRef } from 'react';
 
-const DIALOGUE = ["This is the longest dialogue I could think of, cool I know. testing testing testing testing testing testing", "Hi guys!", "Look at me! I'm a pet!", "Oten"];
+const DIALOGUE = ["This is the longest dialogue I could think of, cool I know. testing testing testing testing testing testing", "Hi guys!", "Look at me! I'm a pet!", "Oten", "😘😘😘😘😘"];
+const GRAB_DIALOGUE = ["Release me!", "WAHHH!", "HELP!!", "Drop me gently!", "WOAHHH!", "CAREFUL NOW!"];
 
 // --- PET DIMENSIONS & SCALE ---
 const PET_SCALE = 2.5; 
@@ -30,7 +32,7 @@ export default function Pet({ name, color, initialX }: { name: string, color: st
   const handlePointerDown = (e: React.PointerEvent) => {
     isDragging.current = true;
     setAction('grab');
-    setSpeech("Wah!");
+    setSpeech(GRAB_DIALOGUE[randomIndex(GRAB_DIALOGUE.length)]);
     
     
     const newX = e.clientX - GRAB_X_SCALED;
@@ -169,7 +171,7 @@ export default function Pet({ name, color, initialX }: { name: string, color: st
       }
 
       if (Math.random() > 0.9) {
-        setSpeech(DIALOGUE[Math.floor(Math.random() * DIALOGUE.length)]);
+        setSpeech(DIALOGUE[randomIndex(DIALOGUE.length)]);
         setTimeout(() => setSpeech(null), 3000); 
       }
     }, 2000); 
@@ -194,15 +196,15 @@ export default function Pet({ name, color, initialX }: { name: string, color: st
     >
       {/* Speech Bubble */}
       {speech && (
-        <div className="absolute bottom-full mb-6 bg-white text-black px-3 py-2 rounded-xl text-xs font-upheaval pointer-events-none text-center shadow-md w-max max-w-[200px] break-words after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-white">
+        <div className="absolute bottom-full mb-6 bg-white text-black px-3 py-2 rounded-xl text-sm font-fredoka pointer-events-none text-center shadow-md w-max max-w-[250px] break-words after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-white">
             {speech}
         </div>
       )}
 
       {/* Username */}
-      <span className="text-[12px] font-upheaval text-white bg-black/50 px-1.5 py-0.5 rounded pointer-events-none mb-1 shadow-sm">
-        {name}
-      </span>
+      <div className="text-[12px] text-center font-upheaval text-white bg-black/50 px-1.5 py-0.5 rounded pointer-events-none mb-1 shadow-sm">
+        {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+      </div>
 
       {/* Dynamic Color */}
       <div 

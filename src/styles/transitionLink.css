@@ -50,39 +50,39 @@
 			var(--yellow) 75%
 		);
 	background-size: 110px 110px;
-    background-position: right;
-    background-attachment: fixed;
+  background-position: right;
+  background-attachment: fixed;
 }
 
 .background-contacts {
- background-color: var(--pink);
-    background-image: repeating-linear-gradient(
-        45deg, 
-        var(--pink2), 
-        var(--pink2) 20px, 
-        var(--pink) 20px, 
-        var(--pink) 40px
-    );
-    position: absolute;
-    top: -100px;
-    left: -100px;
-    right: -100px;
-    bottom: -100px;
+ background: repeating-linear-gradient(
+			45deg,
+			var(--pink2) 25%,
+			var(--pink2) 50%,
+			var(--pink) 50%,
+			var(--pink) 75%
+		);
+	background-size: 110px 110px;
+  background-position: right;
+  background-attachment: fixed;
 
 }
 
 .background-projects {
-  background-color: var(--blue);
-    background-image: repeating-linear-gradient(
-        45deg, 
-        var(--blue2), 
-        var(--blue2) 20px, 
-        var(--blue) 20px, 
-        var(--blue) 40px
-    );
-    position: absolute;
-    top: -100px;
-    left: -100px;
-    right: -100px;
-    bottom: -100px;
+  background: repeating-linear-gradient(
+			45deg,
+			var(--blue2) 25%,
+			var(--blue2) 50%,
+			var(--blue) 50%,
+			var(--blue) 75%
+		);
+	background-size: 110px 110px;
+  background-position: right;
+  background-attachment: fixed;
+}
+
+.background-space {
+  background: linear-gradient(#100b27b3, #100b27b3), repeat url('/images/space.png'), var(--background);
+  background-size: 441px 243px;
+  background-attachment: fixed;
 }

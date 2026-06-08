@@ -1,32 +1,28 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { Center, useGLTF } from '@react-three/drei';
 
 function Scene({ isHovered }:{ isHovered: boolean }) {
   const meshRef = useRef<THREE.Group>(null);
-  const { scene } = useGLTF('/models/icon-sphere.glb'); 
+  
+  // 1. Fetch the globally cached GLTF asset
+  const { scene: cachedScene } = useGLTF('/models/icon-sphere.glb'); 
   const globalMouseRef = useRef({ x: 0, y: 0 });
 
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      globalMouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
-      globalMouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    };
+  // 2. Isolate and modify the model safely for *this lifecycle mount only*
+  const { scene, materialsToDispose } = useMemo(() => {
+    const clonedScene = cachedScene.clone(true); // Deep clone hierarchy
+    const newMaterials: THREE.Material[] = [];
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  useEffect(() => {
-    scene.traverse((child) => {
+    clonedScene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
-        const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+        const originalMaterials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
 
-        const basicMaterials = materials.map((mat) => {
+        const basicMaterials = originalMaterials.map((mat) => {
           const standardMat = mat as THREE.MeshStandardMaterial;
 
           if (standardMat.map) {
@@ -36,7 +32,7 @@ function Scene({ isHovered }:{ isHovered: boolean }) {
             standardMat.map.needsUpdate = true;
           }
 
-          return new THREE.MeshBasicMaterial({
+          const basicMat = new THREE.MeshBasicMaterial({
             map: standardMat.map,
             color: standardMat.color,
             alphaMap: standardMat.alphaMap,
@@ -44,19 +40,38 @@ function Scene({ isHovered }:{ isHovered: boolean }) {
             opacity: standardMat.opacity,
             side: standardMat.side,
           });
+
+          newMaterials.push(basicMat); // Keep a paper trail for garbage collection
+          return basicMat;
         });
 
         mesh.material = basicMaterials.length === 1 ? basicMaterials[0] : basicMaterials;
       }
     });
-  }, [scene]);
+
+    return { scene: clonedScene, materialsToDispose: newMaterials };
+  }, [cachedScene]);
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      globalMouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+      globalMouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      // Clean up VRAM allocations when navigating away from the page
+      materialsToDispose.forEach((material) => material.dispose());
+    };
+  }, [materialsToDispose]);
 
   const targetRotationRef = useRef(0);
   const wasHoveredRef = useRef(false);
 
   useFrame((_state, delta) => {
     if (!meshRef.current) return;
-
     if (delta > 0.1) return;
     
     if (isHovered !== wasHoveredRef.current) {
@@ -85,10 +100,7 @@ function Scene({ isHovered }:{ isHovered: boolean }) {
   return (
     <group ref={meshRef}>
       <Center>
-        <primitive 
-          object={scene} 
-          scale={1.5} 
-        />
+        <primitive object={scene} scale={1.5} />
       </Center>
     </group>
   );
@@ -104,7 +116,7 @@ export default function IconSphere() {
     >
       <Canvas
         camera={{ position: [0, 0, 4], fov: 45 }}
-        gl={{ toneMapping: THREE.NoToneMapping }}
+        gl={{ toneMapping: THREE.NoToneMapping, powerPreference: "high-performance" }}
         flat
       >
         <Scene isHovered={isHovered} />

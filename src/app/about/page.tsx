@@ -1,22 +1,25 @@
+import TransitionLink from "@/components/TransitionLink";
 import { yearsFrom } from "@/utils";
 import Link from "next/link";
 
+
 export default function Page() {
   return (
-    // lg:flex-row splits the screen on desktop. items-start keeps content neat.
-    <section className="flex flex-col lg:flex-row items-center lg:items-start justify-center p-5 sm:p-10 gap-10 lg:gap-16 overflow-x-hidden">
+    <section className="overflow-hidden flex flex-col lg:flex-row items-center lg:items-start lg:justify-start pt-5 px-5 sm:p-10 sm:p-10 gap-10 lg:gap-16 overflow-x-hidden min-h-screen relative">
       
-      {/* LEFT COLUMN: Textboxes & Icons */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-end gap-8">
+      
+
+      {/* LEFT COLUMN */}
+      <div className="w-full lg:w-1/2 ml-5 flex flex-col items-center lg:items-start gap-8 z-10">
         
-        {/* Name Card */}
-        <div className="w-full max-w-[40rem] ml-5 flex flex-col gap-2 sm:gap-3 text-justify p-8 bg-white border-4 border-black shadow-[-8px_8px_0px_0px_rgba(0,0,0,1)] sm:shadow-[-12px_12px_0px_0px_rgba(0,0,0,1)] rounded-lg">
+        {/* NAME CARD */}
+        <div className="w-full max-w-[40rem] flex flex-col gap-2 sm:gap-3 text-justify p-8 bg-white border-4 border-black shadow-[-8px_8px_0px_0px_black] sm:shadow-[-12px_12px_0px_0px_black] rounded-lg">
             <p className="text-2xl sm:text-4xl font-extrabold text-center uppercase">Hertz Lenin C. Miscreola</p>
             <p className="text-lg sm:text-xl font-semibold text-center">Game / Web / Software Developer</p>
         </div>
 
-        {/* Story Card */}
-        <div className="w-full ml-5 max-w-[40rem] flex flex-col gap-5 text-justify p-8 bg-white border-4 border-black shadow-[-8px_8px_0px_0px_rgba(0,0,0,1)] sm:shadow-[-12px_12px_0px_0px_rgba(0,0,0,1)] rounded-lg">
+        {/* INFO CARD */}
+        <div className="w-full max-w-[40rem] flex flex-col gap-5 text-justify p-8 bg-white border-4 border-black shadow-[-8px_8px_0px_0px_black] sm:shadow-[-12px_12px_0px_0px_black] rounded-lg">
           <p className="text-base sm:text-lg">
             I have honed my craft ever since I touched a book about programming back in elementary, so it's been around <b>{yearsFrom(2016)} years</b> or so.
           </p>
@@ -26,50 +29,107 @@ export default function Page() {
             <b> I managed to maximize what I could do with little to no resources</b>.
           </p>
           <p className="text-base sm:text-lg">
-            Overall, I'm a simple guy from the Philippines who likes to laugh and create stuff.<b> Hit me up if you need anything!</b>
+            Overall, I'm a simple guy from the Philippines who likes to laugh and create stuff.<b> Hit me up if you need anything!</b> 
           </p>
         </div>
 
-        {/* Icons Grid */}
+        {/* ICONS - Extra w-full wrapper removed so it centers cleanly with the cards above! */}
+        <div className="w-full max-w-[40rem] flex flex-wrap gap-4 items-center justify-center mt-2">
+          
+          <svg className="absolute w-0 h-0" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              {/* FOREGROUND OUTLINE */}
+              <filter id="img-black-outline" x="-20%" y="-20%" width="140%" height="140%" colorInterpolationFilters="sRGB">
+                <feMorphology in="SourceAlpha" result="expanded" operator="dilate" radius="4" />
+                <feFlood floodColor="black" result="black-color" />
+                <feComposite in="black-color" in2="expanded" operator="in" result="solid-outline" />
+                <feComposite in="SourceGraphic" in2="solid-outline" operator="over" />
+              </filter>
 
-          <div className="w-full max-w-[40rem] flex flex-wrap gap-4 items-center justify-center">
-            
-            {[
-              { name: 'mail', url: 'mailto:hertzlenin.miscreola@gmail.com' },
-              { name: 'resume', url: '/resume.pdf' },
-              { name: 'linkedin', url: 'https://www.linkedin.com/in/hertzleninmiscreola/' },
-              { name: 'itch.io', url: 'https://lenicon.itch.io' },
-              { name: 'github', url: 'https://github.com/Lenicon' }
-            ].map((item) => (
-              
-              <Link 
-                key={item.name} 
-                href={item.url}
-                target={item.url.startsWith('http') ? '_blank' : '_self'}
-                rel="noopener noreferrer"
-                className="w-[80px] sm:w-[100px] flex flex-col gap-2 justify-center items-center text-center p-3 sm:p-5 bg-white border-4 border-black shadow-[-6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[-8px_8px_0px_0px_rgba(0,0,0,1)] rounded-lg transition-all duration-150 hover:-translate-y-1 hover:translate-x-1 hover:shadow-[-10px_10px_0px_0px_rgba(0,0,0,1)] sm:hover:shadow-[-12px_12px_0px_0px_rgba(0,0,0,1)] cursor-pointer select-none"
-              >
-                {/* <img src={`/icons/${item.name}.png`} alt={item.name} className="w-8 h-8 pointer-events-none" /> */}
-                <span className="text-sm sm:text-base font-bold text-black no-underline">
-                  {item.name}
-                </span>
-              </Link>
+              {/* BACKGROUND SHADOW */}
+              <filter id="img-black-shadow" x="-20%" y="-20%" width="140%" height="140%" colorInterpolationFilters="sRGB">
+                <feMorphology in="SourceAlpha" result="expanded" operator="dilate" radius="4" />
+                <feFlood floodColor="black" result="black-color" />
+                <feComposite in="black-color" in2="expanded" operator="in" />
+              </filter>
+            </defs>
+          </svg>
 
-            ))}
+          {[
+            { name:'hertzlenin.miscreola@gmail.com', src: 'mail.png', url: 'mailto:hertzlenin.miscreola@gmail.com' },
+            { name:'Resume', src: 'resume.png', url: '/resume' },
+            { name:'LinkedIn', src: 'linkedin.png', url: 'https://www.linkedin.com/in/hertzleninmiscreola/' },
+            { name:'Itch.io', src: 'itchio.png', url: 'https://lenicon.itch.io' },
+            { name:'Github', src: 'github_white.png', url: 'https://github.com/Lenicon' }
+          ].map((item) => (
+            <Link 
+              key={item.name} 
+              href={item.url}
+              target={item.url.startsWith('http') ? '_blank' : '_self'}
+              rel="noopener noreferrer"
+              className="group relative w-[70px] h-[70px] sm:w-[85px] sm:h-[85px] flex items-center justify-center p-1 cursor-pointer select-none"
+            >
+              <img 
+                src={"/images/icons/" + item.src}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-[10px] translate-y-[10px]"
+                style={{
+                  filter: 'url(#img-black-shadow)'
+                }}
+              />
 
-          </div>
+              <img 
+                title={item.name}
+                src={"/images/icons/" + item.src}
+                alt={item.name}
+                className="relative w-full h-full object-contain block group-hover:-translate-y-1 group-hover:translate-x-1"
+                style={{
+                  filter: 'url(#img-black-outline)'
+                }}
+              />
+            </Link>
+          ))}
+        </div>
       
       </div>
 
-      {/* RIGHT COLUMN: Giant Image */}
-      <div className="w-full lg:w-1/2 flex justify-center lg:justify-start items-center mt-6 lg:mt-0 lg:sticky lg:top-10">
-        {/* On desktop, lg:sticky will make your photo stay pinned in place nicely while you scroll the text boxes */}
+      {/* RIGHT COLUMN */}
+      <div className="w-full lg:w-auto flex justify-center mt-10 mb-[-2rem] sm:mb-0 lg:mt-0 lg:fixed lg:bottom-0 lg:-right-[1rem] lg:z-0">
+        
         <img 
-          className="w-[75%] sm:w-[60%] lg:w-[90%] max-w-2xl object-contain drop-shadow-[0_20px_20px_rgba(0,0,0,0.4)]" 
-          src="/images/about/who-am-i.png" 
-          alt="Hertz Lenin" 
+          className="
+            w-[95%] sm:w-[80%] 
+            md:w-[70vw] lg:w-[55vw] 
+            max-w-none object-contain block origin-bottom-right
+            
+            " 
+          src="/images/about/dude.png" 
+          alt="Hertz Lenin"
+          style={{
+            filter: 'drop-shadow(4px 0px 0px black) drop-shadow(-4px 0px 0px black) drop-shadow(0px 4px 0px black) drop-shadow(0px -4px 0px black) drop-shadow(-20px 20px 0px black)'
+          }}
         />
+
       </div>
+
+      {/* HOME BUTTON */}
+      <TransitionLink backgroundStyle="background-space" href="/" className="group fixed top-5 right-5 w-[50px] h-[50px] z-50 cursor-pointer select-none">
+        <img 
+          src="/images/icons/tent.png" 
+          alt=""
+          aria-hidden="true"
+          className="hidden md:block absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-[6px] translate-y-[6px]"
+          style={{ filter: 'url(#img-black-shadow)' }}
+        />
+
+        <img 
+          src="/images/icons/tent.png" 
+          alt="Home"
+          className="relative w-full h-full object-contain block group-hover:-translate-y-1 group-hover:translate-x-1"
+          style={{ filter: 'url(#img-black-outline)'}}
+        />
+      </TransitionLink>
 
     </section>
   )

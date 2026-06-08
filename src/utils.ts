@@ -11,3 +11,7 @@ export const yearsFrom = (year:number):number => {
 
     return yearsPassed;
 };
+
+export const randomIndex = (length:number):number => {
+    return Math.floor(Math.random() * length);
+}

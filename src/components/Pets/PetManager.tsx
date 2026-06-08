@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Pet from './Pet';
 
 
-const NAMES = ["Chad", "Shimey", "Seandale", "Riri", "Chris", "Riley", "Jazz", "Gian", "Chass", "Test", "Kyle"];
+const NAMES = ["Chad", "Shimey", "Seandale", "Riri", "Chris", "Riley", "Jazz", "Gian", "Chass", "Test", "Kyle", "Longest name known to man", "SUPER DUPER LONGER POOPER VERY LONG NAME HOLY MOLY GUACAMOLE"];
 const COLORS = ["#ff0055", "#00ffaa", "#ffaa00", "#00aaff", "#ff00ff", "#ffffff"];
 const MAX_PETS = 20;
 
