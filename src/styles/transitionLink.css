@@ -54,31 +54,8 @@
   background-attachment: fixed;
 }
 
-.background-contacts {
- background: repeating-linear-gradient(
-			45deg,
-			var(--pink2) 25%,
-			var(--pink2) 50%,
-			var(--pink) 50%,
-			var(--pink) 75%
-		);
-	background-size: 110px 110px;
-  background-position: right;
-  background-attachment: fixed;
-
-}
-
 .background-projects {
-  background: repeating-linear-gradient(
-			45deg,
-			var(--blue2) 25%,
-			var(--blue2) 50%,
-			var(--blue) 50%,
-			var(--blue) 75%
-		);
-	background-size: 110px 110px;
-  background-position: right;
-  background-attachment: fixed;
+  background: var(--blue3);
 }
 
 .background-space {
