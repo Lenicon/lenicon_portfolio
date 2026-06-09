@@ -1,5 +1,5 @@
 import TransitionLink from "@/components/TransitionLink";
-import { yearsFrom } from "@/utils";
+import { yearsFrom } from "@/lib/utils";
 import Link from "next/link";
 
 

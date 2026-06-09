@@ -1,9 +1,8 @@
 'use client';
 
-import { randomIndex } from '@/utils';
+import { randomIndex } from '@/lib/utils';
 import { useState, useEffect, useRef } from 'react';
 
-const DIALOGUE = ["This is the longest dialogue I could think of, cool I know. testing testing testing testing testing testing", "Hi guys!", "Look at me! I'm a pet!", "Oten", "😘😘😘😘😘"];
 const GRAB_DIALOGUE = ["Release me!", "WAHHH!", "HELP!!", "Drop me gently!", "WOAHHH!", "CAREFUL NOW!"];
 
 // --- PET DIMENSIONS & SCALE ---
@@ -20,7 +19,17 @@ const GRAB_Y_ORIGINAL = 10;
 const GRAB_X_SCALED = GRAB_X_ORIGINAL * PET_SCALE;
 const GRAB_Y_SCALED = GRAB_Y_ORIGINAL * PET_SCALE;
 
-export default function Pet({ name, color, initialX }: { name: string, color: string, initialX: number }) {
+export default function Pet({ 
+  name, 
+  color, 
+  initialX, 
+  message 
+}: { 
+  name: string, 
+  color: string, 
+  initialX: number, 
+  message: string 
+}) {
   const [position, setPosition] = useState({ x: initialX, y: 0 }); 
   const [action, setAction] = useState<'idle' | 'walk' | 'grab' | 'fall'>('idle');
   const [direction, setDirection] = useState<1 | -1>(1); 
@@ -34,9 +43,7 @@ export default function Pet({ name, color, initialX }: { name: string, color: st
     setAction('grab');
     setSpeech(GRAB_DIALOGUE[randomIndex(GRAB_DIALOGUE.length)]);
     
-    
     const newX = e.clientX - GRAB_X_SCALED;
-    // Calculate distance from the bottom of the screen to the bottom of the pet
     const newY = window.innerHeight - e.clientY + GRAB_Y_SCALED - PET_HEIGHT;
     
     setPosition({ x: newX, y: Math.max(0, newY) });
@@ -72,23 +79,21 @@ export default function Pet({ name, color, initialX }: { name: string, color: st
         let groundY = 0;
         const petCenterX = prev.x + (PET_WIDTH / 2);
 
-        // Scan all flat platforms
+        // get all platforms
         const platforms = document.querySelectorAll('[data-platform="true"]');
         platforms.forEach(plat => {
           const rect = plat.getBoundingClientRect();
           
           if (petCenterX >= rect.left && petCenterX <= rect.right) {
-            // Convert top edge to bottom-up screen coordinates
             const platTopY = window.innerHeight - rect.top;
             
-            // Only stand on it if it's below the pet
             if (platTopY <= prev.y + 20 && platTopY > groundY) {
               groundY = platTopY;
             }
           }
         });
 
-        // Scan all sphere platforms, for the icon-sphere
+        // get all sphere platforms, for the icon-sphere
         const spherePlatforms = document.querySelectorAll('[data-platform="sphere"]');
         spherePlatforms.forEach(sphere => {
           const rect = sphere.getBoundingClientRect();
@@ -99,14 +104,10 @@ export default function Pet({ name, color, initialX }: { name: string, color: st
 
           const dx = petCenterX - centerX;
 
-          // If the pet is horizontally within the circle's radius
           if (Math.abs(dx) < radius) {
-            // dx^2 + dy^2 = r^2 -> dy = sqrt(r^2 - dx^2)
             const dy = Math.sqrt((radius * radius) - (dx * dx));
-            
             const circleTopY = window.innerHeight - (centerY - dy);
 
-            // Stand if pet fall onto it
             if (circleTopY <= prev.y + 25 && circleTopY > groundY) {
               groundY = circleTopY;
             }
@@ -115,15 +116,13 @@ export default function Pet({ name, color, initialX }: { name: string, color: st
 
         // Falling Logic
         if (prev.y > groundY) {
-          // Fall if walked off edge
           if (action !== 'fall') setAction('fall');
-          
           const nextY = Math.max(groundY, prev.y - 15); 
-          if (nextY === groundY) setAction('idle'); // Landed on platform or ground
+          if (nextY === groundY) setAction('idle');
           return { ...prev, y: nextY };
         }
 
-        // Stop going inside of elements like when you resize windwos
+        // Stop going inside of elements like when you resize windows
         if (prev.y < groundY) {
             return { ...prev, y: groundY };
         }
@@ -170,14 +169,15 @@ export default function Pet({ name, color, initialX }: { name: string, color: st
         }
       }
 
+      // Display the comment message
       if (Math.random() > 0.9) {
-        setSpeech(DIALOGUE[randomIndex(DIALOGUE.length)]);
+        setSpeech(message);
         setTimeout(() => setSpeech(null), 3000); 
       }
     }, 2000); 
 
     return () => clearInterval(aiLoop);
-  }, [action]);
+  }, [action, message]); // Include message in dependency array
 
   return (
     <div 

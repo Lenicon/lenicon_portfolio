@@ -74,3 +74,26 @@ body::-webkit-scrollbar {
     scrollbar-width: none;
   }
 }
+
+button {
+  cursor: pointer;
+}
+
+/* BLACK SCROLLBAR */
+
+.black-scrollbar {
+  scrollbar-color: black #fff;
+}
+
+.black-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.black-scrollbar::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.black-scrollbar::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 4px;
+}

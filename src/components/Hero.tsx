@@ -3,6 +3,8 @@
 import dynamic from 'next/dynamic';
 import PetManager from './Pets/PetManager';
 import TransitionLink from './TransitionLink';
+import { useState } from 'react';
+import Letters from './Letters';
 
 
 const Mail = dynamic(() => import('./Mail'), {
@@ -21,6 +23,8 @@ const IconSphere = dynamic(() => import('./IconSphere'), {
 });
 
 export default function Hero() {
+  const [isLettersOpen, setIsLettersOpen] = useState(false);
+
   return (
     <section className="w-full h-screen flex items-center justify-center text-white px-4 overflow-hidden select-none">
 
@@ -131,10 +135,9 @@ export default function Hero() {
 
 
       {/* MAIL */}
-      <TransitionLink 
-        href="/contacts" 
+      <div 
+        onClick={() => setIsLettersOpen(true)}
         className="group absolute top-4 left-4 sm:top-8 sm:left-8 md:top-12 md:left-12 block"
-        backgroundStyle="background-contacts"
       >
         <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 flex items-center justify-center overflow-visible">
           <Mail/>
@@ -143,11 +146,13 @@ export default function Hero() {
         <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--pink)] font-upheaval tracking-[0.1em] text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
           LETTERS {"<3"}
         </div>
-      </TransitionLink>
+      </div>
 
 
 
       <PetManager />
+
+      {isLettersOpen && <Letters onClose={() => setIsLettersOpen(false)} />}
 
     </section>
   );
