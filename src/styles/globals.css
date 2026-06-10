@@ -7,7 +7,7 @@
   --yellow2: #f5c151;
   --blue: #76bcff;
   --blue2: #76a8ff;
-  --blue3: #51c1be;
+  --blue3: #2fb6b1;
   --pink: #ff9f9f;
   --pink2: #ff8f8f;
   --brown: #120c08;
@@ -40,6 +40,7 @@ a {
   --font-upheaval: 'Upheaval', sans-serif;
   --font-streetyear: 'Street Year', sans-serif;
   --font-fredoka: 'Fredoka', sans-serif;
+  --font-dos: 'Modern DOS', monospace;
 }
 
 @font-face{
@@ -54,6 +55,15 @@ a {
   src: url('/fonts/fredoka.ttf') format('truetype');
 }
 
+@font-face{
+  font-family: 'Modern DOS';
+  src: url('/fonts/dos.ttf') format('truetype');
+}
+
+
+
+
+/* UTILITIES */
 html, body {
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -63,8 +73,6 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none;
 }
-
-/* UTILITIES */
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;

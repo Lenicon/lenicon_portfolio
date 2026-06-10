@@ -70,7 +70,7 @@ export default function Page() {
               className="group relative w-[70px] h-[70px] sm:w-[85px] sm:h-[85px] flex items-center justify-center p-1 cursor-pointer select-none"
             >
               <img 
-                src={"/images/icons/" + item.src}
+                src={"/images/about/icons/" + item.src}
                 alt=""
                 aria-hidden="true"
                 className="absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-[10px] translate-y-[10px]"
@@ -81,7 +81,7 @@ export default function Page() {
 
               <img 
                 title={item.name}
-                src={"/images/icons/" + item.src}
+                src={"/images/about/icons/" + item.src}
                 alt={item.name}
                 className="relative w-full h-full object-contain block group-hover:-translate-y-1 group-hover:translate-x-1"
                 style={{
@@ -116,7 +116,7 @@ export default function Page() {
       {/* HOME BUTTON */}
       <TransitionLink backgroundStyle="background-space" href="/" className="group fixed top-5 right-5 w-[50px] h-[50px] z-50 cursor-pointer select-none">
         <img 
-          src="/images/icons/tent.png" 
+          src="/images/about/icons/tent.png" 
           alt=""
           aria-hidden="true"
           className="hidden md:block absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-[6px] translate-y-[6px]"
@@ -124,7 +124,7 @@ export default function Page() {
         />
 
         <img 
-          src="/images/icons/tent.png" 
+          src="/images/about/icons/tent.png" 
           alt="Home"
           className="relative w-full h-full object-contain block group-hover:-translate-y-1 group-hover:translate-x-1"
           style={{ filter: 'url(#img-black-outline)'}}
