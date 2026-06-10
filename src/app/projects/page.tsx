@@ -257,9 +257,9 @@ export default function Page() {
                 closeWindow(win.id);
               }}
               onPointerDown={(e) => e.stopPropagation()}
-              className="bg-[#c0c0c0] text-black font-bold h-7 w-7 flex items-center justify-center border-2 border-t-white border-l-white border-b-gray-800 border-r-gray-800 active:border-t-black active:border-l-black active:border-b-white active:border-r-white cursor-pointer text-base"
+              className="bg-[#c0c0c0] text-black font-bold h-7 w-7 flex items-center justify-center border-2 border-t-white border-l-white border-b-gray-800 border-r-gray-800 active:border-t-black active:border-l-black active:border-b-white active:border-r-white cursor-pointer text-xl"
             >
-              X
+              x
             </button>
           </div>
 
