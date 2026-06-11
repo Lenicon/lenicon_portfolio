@@ -147,7 +147,7 @@ export const othersData = [
         name: "Town of Bogmoore",
         icon: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@master/assets/svg/1f438.svg',
         link: 'https://town-of-bogmoore.web.app/',
-        desc: "Frog people and weird stuff.\nFirst time creating a website with React and I wanted to be really creative since it was almost my birthday.\nMade with React, Typescript, Firebase Hosting."
+        desc: "Frog people and weird stuff.\nFirst time creating a website with React and I wanted to be really creative since it was almost my birthday.\nMade with React, Typescript, and Firebase Hosting."
     },
     {
         id: 4,
