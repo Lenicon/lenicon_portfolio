@@ -7,9 +7,6 @@ export default function Page() {
   return (
     <section className="overflow-hidden flex flex-col lg:flex-row items-center lg:items-start lg:justify-start pt-5 px-5 sm:p-10 sm:p-10 gap-10 lg:gap-16 overflow-x-hidden min-h-screen relative">
       
-      
-
-      {/* LEFT COLUMN */}
       <div className="w-full lg:w-1/2 ml-5 flex flex-col items-center lg:items-start gap-8 z-10">
         
         {/* NAME CARD */}
@@ -38,7 +35,6 @@ export default function Page() {
           
           <svg className="absolute w-0 h-0" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              {/* FOREGROUND OUTLINE */}
               <filter id="img-black-outline" x="-20%" y="-20%" width="140%" height="140%" colorInterpolationFilters="sRGB">
                 <feMorphology in="SourceAlpha" result="expanded" operator="dilate" radius="4" />
                 <feFlood floodColor="black" result="black-color" />
@@ -46,7 +42,6 @@ export default function Page() {
                 <feComposite in="SourceGraphic" in2="solid-outline" operator="over" />
               </filter>
 
-              {/* BACKGROUND SHADOW */}
               <filter id="img-black-shadow" x="-20%" y="-20%" width="140%" height="140%" colorInterpolationFilters="sRGB">
                 <feMorphology in="SourceAlpha" result="expanded" operator="dilate" radius="4" />
                 <feFlood floodColor="black" result="black-color" />
@@ -122,7 +117,7 @@ export default function Page() {
       
       </div>
 
-      {/* RIGHT COLUMN */}
+      {/* IMAGE */}
       <div className="w-full lg:w-auto flex justify-center mt-10 mb-[-2rem] sm:mb-0 lg:mt-0 lg:fixed lg:bottom-0 lg:-right-[1rem] lg:z-0">
         
         <img 
