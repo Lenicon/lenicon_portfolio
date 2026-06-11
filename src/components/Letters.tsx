@@ -151,7 +151,7 @@ export default function Letters({ onClose }: { onClose: () => void }) {
                     })()
                 }}
 
-                >SKIN</div>
+                ><img src="/images/eye-dropper-solid.svg" className="w-[20px]"/></div>
             </div>
 
             <div className="w-[1px] h-full bg-black flex-shrink-0" />
