@@ -6,7 +6,7 @@ export const gamesData = [
         name: "DROPSWEEPER",
         icon: 'https://img.itch.zone/aW1nLzI2NzcwMzkwLnBuZw==/32x32%23/58Tpva.png',
         link: 'https://lenicon.itch.io/dropsweeper',
-        desc: "This is my latest game.\nIt's a roguelite x minesweeper game with cute characters. I made it because I was addicted to minesweeper and wanted a challenge.\nMade with Godot 4 for the Comfy Jam: Spring."
+        desc: "It's a roguelite x minesweeper game with cute characters.\nI had a field day with flexible item creation and file saving with resources. This has got to be my overengineered project ever.\nMade with Godot 4 for the Comfy Jam: Spring."
     },
     {
         id: 2,
@@ -100,5 +100,62 @@ export const gamesData = [
     },
 ];
 
-export const appsData = [];
-export const othersData = [];
+export const toolsData = [
+    {
+        id: 1,
+        blackbg: false,
+        date: '19 February 2026',
+        name: "Godot DAT Editor",
+        icon: 'https://img.itch.zone/aW1nLzI1NjYyNzUzLnBuZw==/32x32%23/kv5P6e.png',
+        link: 'https://lenicon.itch.io/gdat-edit',
+        desc: "Tool where you can easily edit your Godot .DAT files. I made this after SWYN 1.0, I wanted a way where I can easily modify and view save files for testing."
+    },
+    {
+        id: 2,
+        blackbg: false,
+        date: '24 August 2024',
+        name: "Trash Toolbox",
+        icon: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@master/assets/svg/1f9f0.svg',
+        link: 'https://trash-toolbox.web.app/',
+        desc: "I wanted to become a content creator so I did a challenge where I make 1 tool per week. I only made around 5 tools before I gave up due to school reasons."
+    },
+    
+];
+export const othersData = [
+    {
+        id: 3,
+        blackbg: true,
+        date: '12 June 2026',
+        name: "Len.icon",
+        icon: '/images/icon-sphere-placeholder.png',
+        link: 'https://lenicondev.web.app',
+        desc: "My portfolio website, the moment I received a brand new laptop everything changed. I could work on 3D modelling and more heavy programs!\nMade with NextJS, Firebase Hosting, and ThreeJS."
+    },
+    {
+        id: 1,
+        blackbg: false,
+        date: '18 January 2026',
+        name: "DaisieDex",
+        icon: 'https://raw.githubusercontent.com/Lenicon/daisiedex/refs/heads/main/assets/icons/icon_windows.png',
+        link: 'https://github.com/Lenicon/daisiedex',
+        desc: "Once upon a time, I had a crush on this girl who liked plants and was left handed. She was quirky and cute and nice. So I made her an app where she can scan plants and give them nicknames and a story. She broke it off with me some time later.\nMade with Flutter."
+    },
+    {
+        id: 2,
+        blackbg: false,
+        date: '6 August 2024',
+        name: "Town of Bogmoore",
+        icon: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@master/assets/svg/1f438.svg',
+        link: 'https://town-of-bogmoore.web.app/',
+        desc: "Frog people and weird stuff.\nFirst time creating a website with React and I wanted to be really creative since it was almost my birthday.\nMade with React, Typescript, Firebase Hosting."
+    },
+    {
+        id: 4,
+        blackbg: false,
+        date: '1 March 2024',
+        name: "Friend.ly",
+        icon: 'https://friendly-23d49.web.app/logo.png',
+        link: 'https://friendly-23d49.web.app/',
+        desc: "A messsaging site where you anonymously make friends in school (USC specifically).\nI solo developed this website for our research thesis, it took me 3 months to complete my first website. I can't believe it's still up.\nMade with React, Typescript, and Firebase Hosting."
+    },
+];

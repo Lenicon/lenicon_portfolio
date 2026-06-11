@@ -33,7 +33,7 @@ export default function Page() {
           </p>
         </div>
 
-        {/* ICONS - Extra w-full wrapper removed so it centers cleanly with the cards above! */}
+        {/* FOR ICONS  */}
         <div className="w-full max-w-[40rem] flex flex-wrap gap-4 items-center justify-center mt-2">
           
           <svg className="absolute w-0 h-0" xmlns="http://www.w3.org/2000/svg">
@@ -62,10 +62,11 @@ export default function Page() {
             { name:'Itch.io', src: 'itchio.png', url: 'https://lenicon.itch.io' },
             { name:'Github', src: 'github_white.png', url: 'https://github.com/Lenicon' }
           ].map((item) => (
+            item.url.startsWith('http') ?
             <Link 
               key={item.name} 
               href={item.url}
-              target={item.url.startsWith('http') ? '_blank' : '_self'}
+              target='_blank'
               rel="noopener noreferrer"
               className="group relative w-[70px] h-[70px] sm:w-[85px] sm:h-[85px] flex items-center justify-center p-1 cursor-pointer select-none"
             >
@@ -89,6 +90,33 @@ export default function Page() {
                 }}
               />
             </Link>
+            :
+            <TransitionLink 
+              backgroundStyle="background-resume"
+              key={item.name} 
+              href={item.url}
+              className="group relative w-[70px] h-[70px] sm:w-[85px] sm:h-[85px] flex items-center justify-center p-1 cursor-pointer select-none"
+            >
+              <img 
+                src={"/images/about/icons/" + item.src}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-[10px] translate-y-[10px]"
+                style={{
+                  filter: 'url(#img-black-shadow)'
+                }}
+              />
+
+              <img 
+                title={item.name}
+                src={"/images/about/icons/" + item.src}
+                alt={item.name}
+                className="relative w-full h-full object-contain block group-hover:-translate-y-1 group-hover:translate-x-1"
+                style={{
+                  filter: 'url(#img-black-outline)'
+                }}
+              />
+            </TransitionLink>
           ))}
         </div>
       
@@ -114,7 +142,7 @@ export default function Page() {
       </div>
 
       {/* HOME BUTTON */}
-      <TransitionLink backgroundStyle="background-space" href="/" className="group fixed top-5 right-5 w-[50px] h-[50px] z-50 cursor-pointer select-none">
+      <TransitionLink backgroundStyle="background-space" href="/" className="group fixed top-7 right-7 lg:top-5 lg:right-5 w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] z-50 cursor-pointer select-none">
         <img 
           src="/images/about/icons/tent.png" 
           alt=""

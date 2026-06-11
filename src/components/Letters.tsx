@@ -115,8 +115,8 @@ export default function Letters({ onClose }: { onClose: () => void }) {
 
             <input 
                 type="text" 
-                placeholder="Who are you? Name? Please." 
-                maxLength={15}
+                placeholder="Who are you? What's your name?" 
+                maxLength={30}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="bg-white border border-1 border-black px-3 py-2 h-full text-md text-black focus:outline-none w-full font-fredoka"
@@ -138,7 +138,7 @@ export default function Letters({ onClose }: { onClose: () => void }) {
                 />
                 
                 <div 
-                className="absolute inset-0 flex items-center justify-center pointer-events-none font-bold text-lg"
+                className="absolute inset-0 flex items-center justify-center pointer-events-none font-bold text-xs"
                 style={{
                     color: (() => {
                     const hex = color.replace('#', '');
@@ -151,7 +151,7 @@ export default function Letters({ onClose }: { onClose: () => void }) {
                     })()
                 }}
 
-                >C</div>
+                >SKIN</div>
             </div>
 
             <div className="w-[1px] h-full bg-black flex-shrink-0" />

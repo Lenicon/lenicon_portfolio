@@ -2,22 +2,27 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { gamesData, appsData, othersData } from './data';
+import { gamesData, toolsData, othersData } from './data';
 import TransitionLink from '@/components/TransitionLink';
+import IconLink from '@/components/IconLink';
 
 const folders = [
-  { id: 'Len.icon', type:"link", href:"/", icon: '/images/projects/icons/home.png',},
+  { id: 'Home', type:"link", href:"/", icon: '/images/projects/icons/home.png',},
   { id: 'Games', type:"window", icon: '/images/projects/icons/folder.png' },
-  { id: 'Apps', type:"window", icon: '/images/projects/icons/folder.png' },
+  { id: 'Tools', type:"window", icon: '/images/projects/icons/folder.png' },
   { id: 'Others', type:"window", icon: '/images/projects/icons/folder.png' },
+  { id: 'itch.io', type:"link", href:"https://lenicon.itch.io/", icon: '/images/projects/icons/itchio.svg',},
+  { id: 'Github', type:"link", href:"https://github.com/Lenicon", icon: '/images/projects/icons/github.svg',},
 ] as const;
 
 type FolderId = typeof folders[number]['id'];
 
 const projectsData = {
-  "Len.icon": [],
+  "itch.io":[],
+  "Github":[],
+  "Home": [],
   Games: gamesData,
-  Apps: appsData,
+  Tools: toolsData,
   Others: othersData
 };
 
@@ -36,10 +41,12 @@ type HoveredProjectState = {
 export default function Page() {
   // --- STATE ---
   const [icons, setIcons] = useState<IconState[]>([
-    { id: 'Len.icon', pos: { x: 40, y: 40 } },
-    { id: 'Games', pos: { x: 40, y: 140 } },
-    { id: 'Apps', pos: { x: 40, y: 240 } },
-    { id: 'Others', pos: { x: 40, y: 340 } },
+    { id: 'Home', pos: { x: 40, y: 40 } },
+    { id: 'itch.io', pos: { x: 40, y: 140 } },
+    { id: 'Github', pos: { x: 40, y: 240 } },
+    { id: 'Games', pos: { x: 140, y: 40 } },
+    { id: 'Tools', pos: { x: 140, y: 140 } },
+    { id: 'Others', pos: { x: 140, y: 240 } },
   ]);
 
   const [openWindows, setOpenWindows] = useState<WindowState[]>([]);
@@ -193,13 +200,26 @@ export default function Page() {
                 draggable={false}
               />
             </div>
-            <span className="text-base text-black bg-transparent group-active:bg-blue-800 group-active:text-white px-1 mt-1">
+            <span className={`text-base truncate group-active:text-white px-1 mt-1 ${
+                  isDragging 
+                    ? 'bg-blue-800 text-white'
+                    : 'text-black bg-transparent group-hover:text-black'
+                }`}>
               {folder.id}
             </span>
           </>
         );
 
         return folder.type === 'link' ? (
+          folder.href.startsWith("http") ? (
+            <IconLink key={icon.id}
+            href={folder.href}
+            className="w-15 absolute flex flex-col items-center gap-1 group touch-none cursor-pointer"
+            style={iconStyles}
+            onPointerDown={(e:any) => handlePointerDown(e, icon.id, 'icon', icon.pos)}
+            onPointerMove={(e:any) => handlePointerMove(e, icon.id, 'icon')}
+            onPointerUp={handlePointerUp}>{IconInnerContent}</IconLink>
+          ) : (
           <TransitionLink
             key={icon.id}
             href={folder.href}
@@ -209,9 +229,8 @@ export default function Page() {
             onPointerDown={(e:any) => handlePointerDown(e, icon.id, 'icon', icon.pos)}
             onPointerMove={(e:any) => handlePointerMove(e, icon.id, 'icon')}
             onPointerUp={handlePointerUp}
-          >
-            {IconInnerContent}
-          </TransitionLink>
+          > {IconInnerContent}</TransitionLink>
+          )
         ) : (
           <div
             key={icon.id}

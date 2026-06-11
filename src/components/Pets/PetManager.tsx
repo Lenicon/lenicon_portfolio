@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Pet from './Pet';
-import { db } from '@/lib/firebase'; // Adjust this path to your firebase config
+import { db } from '@/lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
 const MAX_PETS = 20;
@@ -32,7 +32,6 @@ export default function PetManager() {
 
     const fetchAndSpawnPets = async () => {
       try {
-        // 1. Get the current highest shard from metadata
         const metaRef = doc(db, 'letters', '_metadata');
         const metaSnap = await getDoc(metaRef);
         
@@ -41,10 +40,8 @@ export default function PetManager() {
           highestShard = metaSnap.data().highestShard || 1;
         }
 
-        // 2. Pick a random shard between 1 and the highest shard for variety
         const randomShardId = Math.floor(Math.random() * highestShard) + 1;
         
-        // 3. Fetch that specific shard
         const shardRef = doc(db, 'letters', randomShardId.toString());
         const shardSnap = await getDoc(shardRef);
 
@@ -52,14 +49,11 @@ export default function PetManager() {
           const data = shardSnap.data();
           const batch: string[] = data.batch || [];
           
-          // 4. Parse the JSON strings into objects
           const parsedComments: CommentData[] = batch.map((item) => JSON.parse(item));
 
-          // 5. Shuffle the array and pick up to MAX_PETS
           const shuffled = parsedComments.sort(() => 0.5 - Math.random());
           const selected = shuffled.slice(0, MAX_PETS);
 
-          // 6. Map to PetData format
           const newPets: PetData[] = selected.map((comment, index) => ({
             id: `${randomShardId}-${index}`,
             name: comment.username || 'Anonymous',

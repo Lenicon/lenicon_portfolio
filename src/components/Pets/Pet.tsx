@@ -169,7 +169,6 @@ export default function Pet({
         }
       }
 
-      // Display the comment message
       if (Math.random() > 0.9) {
         setSpeech(message);
         setTimeout(() => setSpeech(null), 3000); 
@@ -177,7 +176,7 @@ export default function Pet({
     }, 2000); 
 
     return () => clearInterval(aiLoop);
-  }, [action, message]); // Include message in dependency array
+  }, [action, message]);
 
   return (
     <div 

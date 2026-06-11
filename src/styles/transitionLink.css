@@ -42,13 +42,26 @@
 */
 
 .background-about {
-   background: repeating-linear-gradient(
-			45deg,
-			var(--yellow2) 25%,
-			var(--yellow2) 50%,
-			var(--yellow) 50%,
-			var(--yellow) 75%
-		);
+  background: repeating-linear-gradient(
+    45deg,
+    var(--yellow2) 25%,
+    var(--yellow2) 50%,
+    var(--yellow) 50%,
+    var(--yellow) 75%
+  );
+	background-size: 110px 110px;
+  background-position: right;
+  background-attachment: fixed;
+}
+
+.background-resume {
+  background: repeating-linear-gradient(
+    45deg,
+    #bebebe 25%,
+    #bebebe 50%,
+    #a8a8a8 50%,
+    #a8a8a8 75%
+  );
 	background-size: 110px 110px;
   background-position: right;
   background-attachment: fixed;
