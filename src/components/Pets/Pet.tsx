@@ -5,19 +5,11 @@ import { useState, useEffect, useRef } from 'react';
 
 const GRAB_DIALOGUE = ["Release me!", "WAHHH!", "HELP!!", "Drop me gently!", "WOAHHH!", "CAREFUL NOW!"];
 
-// --- PET DIMENSIONS & SCALE ---
-const PET_SCALE = 2.5; 
 const BASE_WIDTH = 28;
 const BASE_HEIGHT = 33;
 
-const PET_WIDTH = BASE_WIDTH * PET_SCALE;
-const PET_HEIGHT = BASE_HEIGHT * PET_SCALE;
-
 const GRAB_X_ORIGINAL = 13;
 const GRAB_Y_ORIGINAL = 10;
-
-const GRAB_X_SCALED = GRAB_X_ORIGINAL * PET_SCALE;
-const GRAB_Y_SCALED = GRAB_Y_ORIGINAL * PET_SCALE;
 
 export default function Pet({ 
   name, 
@@ -30,6 +22,33 @@ export default function Pet({
   initialX: number, 
   message: string 
 }) {
+
+  const [petScale, setPetScale] = useState(2.5);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setPetScale(1.5); // Small scale
+      } else if (window.innerWidth < 1024) {
+        setPetScale(2.0); // Medium scale
+      } else {
+        setPetScale(2.5); // Default desktop scale
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const PET_WIDTH = BASE_WIDTH * petScale;
+  const PET_HEIGHT = BASE_HEIGHT * petScale;
+
+  const GRAB_X_SCALED = GRAB_X_ORIGINAL * petScale;
+  const GRAB_Y_SCALED = GRAB_Y_ORIGINAL * petScale;
+
+  const EDGE_PADDING = Math.min(90, window.innerWidth * 0.15); 
+
   const [position, setPosition] = useState({ x: initialX, y: 0 }); 
   const [action, setAction] = useState<'idle' | 'walk' | 'grab' | 'fall'>('idle');
   const [direction, setDirection] = useState<1 | -1>(1); 
@@ -37,27 +56,41 @@ export default function Pet({
   
   const isDragging = useRef(false);
 
-  // --- DRAG ---
+  
+  useEffect(() => {
+    setPosition((prev) => {
+      const maxAvailableX = window.innerWidth - PET_WIDTH - EDGE_PADDING;
+      const clampedX = Math.max(EDGE_PADDING, Math.min(maxAvailableX, prev.x));
+      return { ...prev, x: clampedX };
+    });
+  }, [petScale, PET_WIDTH, EDGE_PADDING]);
+
+  // DRAG
   const handlePointerDown = (e: React.PointerEvent) => {
     isDragging.current = true;
     setAction('grab');
     setSpeech(GRAB_DIALOGUE[randomIndex(GRAB_DIALOGUE.length)]);
     
-    const newX = e.clientX - GRAB_X_SCALED;
-    const newY = window.innerHeight - e.clientY + GRAB_Y_SCALED - PET_HEIGHT;
+    const rawX = e.clientX - GRAB_X_SCALED;
+    const rawY = window.innerHeight - e.clientY + GRAB_Y_SCALED - PET_HEIGHT;
     
-    setPosition({ x: newX, y: Math.max(0, newY) });
+    const clampedX = Math.max(EDGE_PADDING, Math.min(window.innerWidth - PET_WIDTH - EDGE_PADDING, rawX));
+    const clampedY = Math.max(0, Math.min(window.innerHeight - PET_HEIGHT, rawY));
     
+    setPosition({ x: clampedX, y: clampedY });
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
     if (!isDragging.current) return;
     
-    const newX = e.clientX - GRAB_X_SCALED;
-    const newY = window.innerHeight - e.clientY + GRAB_Y_SCALED - PET_HEIGHT;
+    const rawX = e.clientX - GRAB_X_SCALED;
+    const rawY = window.innerHeight - e.clientY + GRAB_Y_SCALED - PET_HEIGHT;
     
-    setPosition({ x: newX, y: Math.max(0, newY) });
+    const clampedX = Math.max(EDGE_PADDING, Math.min(window.innerWidth - PET_WIDTH - EDGE_PADDING, rawX));
+    const clampedY = Math.max(0, Math.min(window.innerHeight - PET_HEIGHT, rawY));
+    
+    setPosition({ x: clampedX, y: clampedY });
   };
 
   const handlePointerUp = (e: React.PointerEvent) => {
@@ -69,52 +102,43 @@ export default function Pet({
     setSpeech(null);
   };
 
-  // --- MOVEMENT ---
+  // MOVEMENT
   useEffect(() => {
     const loop = setInterval(() => {
       if (isDragging.current) return;
 
       setPosition((prev) => {
-        // RAYCAST
         let groundY = 0;
         const petCenterX = prev.x + (PET_WIDTH / 2);
 
-        // get all platforms
         const platforms = document.querySelectorAll('[data-platform="true"]');
         platforms.forEach(plat => {
           const rect = plat.getBoundingClientRect();
-          
           if (petCenterX >= rect.left && petCenterX <= rect.right) {
             const platTopY = window.innerHeight - rect.top;
-            
             if (platTopY <= prev.y + 20 && platTopY > groundY) {
               groundY = platTopY;
             }
           }
         });
 
-        // get all sphere platforms, for the icon-sphere
         const spherePlatforms = document.querySelectorAll('[data-platform="sphere"]');
         spherePlatforms.forEach(sphere => {
           const rect = sphere.getBoundingClientRect();
-          
           const radius = rect.width / 2;
           const centerX = rect.left + radius;
           const centerY = rect.top + radius;
-
           const dx = petCenterX - centerX;
 
           if (Math.abs(dx) < radius) {
             const dy = Math.sqrt((radius * radius) - (dx * dx));
             const circleTopY = window.innerHeight - (centerY - dy);
-
             if (circleTopY <= prev.y + 25 && circleTopY > groundY) {
               groundY = circleTopY;
             }
           }
         });
 
-        // Falling Logic
         if (prev.y > groundY) {
           if (action !== 'fall') setAction('fall');
           const nextY = Math.max(groundY, prev.y - 15); 
@@ -122,27 +146,24 @@ export default function Pet({
           return { ...prev, y: nextY };
         }
 
-        // Stop going inside of elements like when you resize windows
         if (prev.y < groundY) {
             return { ...prev, y: groundY };
         }
 
-        // Wake up if marked fall but already on the ground
         if (action === 'fall' && prev.y === groundY) {
             setAction('idle');
             return prev;
         }
 
-        // Walking Logic
         if (action === 'walk') {
           let nextX = prev.x + (2 * direction); 
-          let newDir = direction;
           
-          // Flip
-          if (nextX < 0) { nextX = 0; newDir = 1; setDirection(1); }
-          if (nextX > window.innerWidth - PET_WIDTH) { 
-            nextX = window.innerWidth - PET_WIDTH; 
-            newDir = -1; 
+          if (nextX < EDGE_PADDING) { 
+            nextX = EDGE_PADDING; 
+            setDirection(1); 
+          }
+          if (nextX > window.innerWidth - PET_WIDTH - EDGE_PADDING) { 
+            nextX = window.innerWidth - PET_WIDTH - EDGE_PADDING; 
             setDirection(-1); 
           }
           
@@ -154,7 +175,7 @@ export default function Pet({
     }, 1000 / 60); 
 
     return () => clearInterval(loop);
-  }, [action, direction]);
+  }, [action, direction, PET_WIDTH, EDGE_PADDING]);
 
   useEffect(() => {
     const aiLoop = setInterval(() => {
@@ -163,7 +184,6 @@ export default function Pet({
       if (Math.random() > 0.5) {
         const nextAction = Math.random() > 0.5 ? 'walk' : 'idle';
         setAction(nextAction);
-        
         if (nextAction === 'walk') {
           setDirection(Math.random() > 0.5 ? 1 : -1);
         }
@@ -180,7 +200,7 @@ export default function Pet({
 
   return (
     <div 
-      className="absolute flex flex-col items-center justify-end select-none touch-none cursor-grab active:cursor-grabbing"
+      className="absolute flex flex-col items-center justify-end select-none touch-none overscroll-none cursor-grab active:cursor-grabbing"
       style={{
         left: `${position.x}px`,
         bottom: `${position.y}px`,
@@ -193,16 +213,16 @@ export default function Pet({
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
     >
-      {/* Speech Bubble */}
+      {/* Speech Bubble*/}
       {speech && (
-        <div className="absolute bottom-full mb-6 bg-white text-black px-3 py-2 rounded-xl text-sm font-fredoka pointer-events-none text-center shadow-md w-max max-w-[250px] break-words after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-white">
+        <div className="absolute bottom-full mb-4 bg-white text-black px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-fredoka pointer-events-none text-center shadow-md w-max max-w-[160px] sm:max-w-[250px] break-words after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-white">
             {speech}
         </div>
       )}
 
       {/* Username */}
-      <div className="text-[12px] text-center font-upheaval text-white bg-black/50 px-1.5 py-0.5 rounded pointer-events-none mb-1 shadow-sm">
-        {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+      <div className="text-[10px] sm:text-[12px] text-center font-upheaval text-white bg-black/50 px-1.5 py-0.5 rounded pointer-events-none mb-1 shadow-sm whitespace-nowrap">
+        {name.length > 12 ? `${name.substring(0, 12)}...` : name}
       </div>
 
       {/* Dynamic Color */}
