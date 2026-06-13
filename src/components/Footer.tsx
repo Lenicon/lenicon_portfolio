@@ -15,7 +15,7 @@ export default function Footer() {
   return (
     <footer id="floor-footer" className="absolute bottom-0 left-0 w-full flex justify-center items-center z-50 pointer-events-none">
       
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 bg-black/70 px-5 py-3 sm:py-2 border-t border-white/10 shadow-xl pointer-events-auto w-full max-w-sm sm:max-w-none">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 bg-black/70 px-5 py-3 sm:py-2 border-t border-white/10 shadow-xl pointer-events-auto w-full">
         
         <span className="font-upheaval text-white text-xs tracking-[0.15em] select-none py-1 sm:py-0">
           MADE WITH LOVE {"<3"}
