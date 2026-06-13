@@ -34,6 +34,10 @@ export default function Hero() {
           <h1 className="text-9xl sm:text-[12rem] md:text-[15rem] lg:text-[20rem] font-upheaval text-[var(--yellow)] leading-none m-0 p-0 pointer-events-none">
             LEN
           </h1>
+
+          <p className="absolute bottom-3 sm:bottom-5 md:bottom-6 left-0 w-full text-center font-upheaval text-[8px] sm:text-xs md:text-base lg:text-xl text-white tracking-[0.2em] pointer-events-none opacity-90">
+            I build games, websites, and dreams
+          </p>
           
           {/* CUSTOM COLLIDERS*/}
           <div 

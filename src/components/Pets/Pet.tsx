@@ -15,11 +15,13 @@ export default function Pet({
   name, 
   color, 
   initialX, 
+  initialY = 0,
   message 
 }: { 
   name: string, 
   color: string, 
-  initialX: number, 
+  initialX: number,
+  initialY: number,
   message: string 
 }) {
 
@@ -27,13 +29,8 @@ export default function Pet({
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setPetScale(1.5); // Small scale
-      } else if (window.innerWidth < 1024) {
-        setPetScale(2.0); // Medium scale
-      } else {
-        setPetScale(2.5); // Default desktop scale
-      }
+      if (window.innerWidth < 640) setPetScale(1.5); // Small scale
+      else setPetScale(2.0); // Medium scale
     };
 
     handleResize();
@@ -49,13 +46,17 @@ export default function Pet({
 
   const EDGE_PADDING = Math.min(90, window.innerWidth * 0.15); 
 
-  const [position, setPosition] = useState({ x: initialX, y: 0 }); 
+  const [position, setPosition] = useState({ x: initialX, y: initialY }); 
   const [action, setAction] = useState<'idle' | 'walk' | 'grab' | 'fall'>('idle');
   const [direction, setDirection] = useState<1 | -1>(1); 
   const [speech, setSpeech] = useState<string | null>(null);
   
   const isDragging = useRef(false);
 
+  const getFooterHeight = () => {
+    const footer = document.getElementById('floor-footer');
+    return footer ? footer.getBoundingClientRect().height : 0;
+  };
   
   useEffect(() => {
     setPosition((prev) => {
@@ -75,7 +76,7 @@ export default function Pet({
     const rawY = window.innerHeight - e.clientY + GRAB_Y_SCALED - PET_HEIGHT;
     
     const clampedX = Math.max(EDGE_PADDING, Math.min(window.innerWidth - PET_WIDTH - EDGE_PADDING, rawX));
-    const clampedY = Math.max(0, Math.min(window.innerHeight - PET_HEIGHT, rawY));
+    const clampedY = Math.max(getFooterHeight(), Math.min(window.innerHeight - PET_HEIGHT, rawY));
     
     setPosition({ x: clampedX, y: clampedY });
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
@@ -88,8 +89,8 @@ export default function Pet({
     const rawY = window.innerHeight - e.clientY + GRAB_Y_SCALED - PET_HEIGHT;
     
     const clampedX = Math.max(EDGE_PADDING, Math.min(window.innerWidth - PET_WIDTH - EDGE_PADDING, rawX));
-    const clampedY = Math.max(0, Math.min(window.innerHeight - PET_HEIGHT, rawY));
-    
+    const clampedY = Math.max(getFooterHeight(), Math.min(window.innerHeight - PET_HEIGHT, rawY));
+
     setPosition({ x: clampedX, y: clampedY });
   };
 
@@ -108,7 +109,7 @@ export default function Pet({
       if (isDragging.current) return;
 
       setPosition((prev) => {
-        let groundY = 0;
+        let groundY = getFooterHeight();
         const petCenterX = prev.x + (PET_WIDTH / 2);
 
         const platforms = document.querySelectorAll('[data-platform="true"]');
@@ -198,6 +199,8 @@ export default function Pet({
     return () => clearInterval(aiLoop);
   }, [action, message]);
 
+  const isBlack = color.toLowerCase() === '#000' || color.toLowerCase() === '#000000';
+
   return (
     <div 
       className="absolute flex flex-col items-center justify-end select-none touch-none overscroll-none cursor-grab active:cursor-grabbing"
@@ -227,18 +230,25 @@ export default function Pet({
 
       {/* Dynamic Color */}
       <div 
-        className="pointer-events-none transition-transform duration-200"
+        className="w-full h-full pointer-events-none overflow-visible"
         style={{
-          width: '100%',
-          height: '100%',
-          backgroundColor: color,
-          WebkitMaskImage: `url(/images/pet/${action}.gif)`, 
-          WebkitMaskSize: 'contain',
-          WebkitMaskRepeat: 'no-repeat',
-          WebkitMaskPosition: 'bottom center',
-          transform: `scaleX(${direction})`, 
+          filter: isBlack 
+            ? 'drop-shadow(0 0 4px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.95))' 
+            : `drop-shadow(0 0 3px ${color}80)`,
         }}
-      />
+      >
+        <div 
+          className="w-full h-full pointer-events-none transition-transform duration-200"
+          style={{
+            backgroundColor: color,
+            WebkitMaskImage: `url(/images/pet/${action}.gif)`, 
+            WebkitMaskSize: 'contain',
+            WebkitMaskRepeat: 'no-repeat',
+            WebkitMaskPosition: 'bottom center',
+            transform: `scaleX(${direction})`, 
+          }}
+        />
+      </div>
     </div>
   );
 }

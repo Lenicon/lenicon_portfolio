@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { submitLetter, getHighestShardId, fetchShardLetters, Letter } from '@/lib/letters';
+import { isColorDark } from '@/lib/utils';
 
 export default function Letters({ onClose }: { onClose: () => void }) {
   const [username, setUsername] = useState('');
@@ -88,8 +89,7 @@ export default function Letters({ onClose }: { onClose: () => void }) {
         <div className="flex-1 overflow-y-auto p-4 space-y-3 scroll-smooth black-scrollbar">
           {letters.map((c, i) => (
             <div key={i} className=" flex flex-col border border-black flex">
-                <div className='p-2 flex gap-2 bg-black h-full w-full' style={{ color: c.color }}>
-                    <div className="w-4 h-4 rounded-full mt-1" style={{ backgroundColor: c.color }} />
+                <div className='p-2 flex gap-2 h-full w-full border-black border-b-1' style={{ color: isColorDark(c.color) ? "#fff":"#000", backgroundColor: c.color }}>
                     <span className='font-semibold font-fredoka'>{c.username}</span>
                 </div>
                 <p className="py-3 px-5 break-words text-black font-fredoka text-lg leading-relaxed">"{c.message}"</p>
