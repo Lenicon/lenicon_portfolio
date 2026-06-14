@@ -35,7 +35,7 @@ export default function Hero() {
             LEN
           </h1>
 
-          <p className="absolute bottom-3 sm:bottom-5 md:bottom-6 left-0 w-full text-center font-upheaval text-[8px] sm:text-xs md:text-base lg:text-xl text-white tracking-[0.2em] pointer-events-none opacity-90">
+          <p className="absolute bottom-3 sm:bottom-5 md:bottom-6 -left-1 w-full text-center font-upheaval text-[8px] sm:text-xs md:text-base lg:text-xl text-white tracking-[0.2em] pointer-events-none opacity-90">
             I build games, websites, and dreams
           </p>
           
