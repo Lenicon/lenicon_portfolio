@@ -241,7 +241,7 @@ export default function Pet({
           className="w-full h-full pointer-events-none transition-transform duration-200"
           style={{
             backgroundColor: color,
-            WebkitMaskImage: `url(/images/pet/${action}.gif)`, 
+            WebkitMaskImage: `url(/images/pet/${name.toUpperCase()=="BOXKUN"?"boxkun/":""}${action}.gif)`, 
             WebkitMaskSize: 'contain',
             WebkitMaskRepeat: 'no-repeat',
             WebkitMaskPosition: 'bottom center',
