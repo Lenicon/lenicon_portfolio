@@ -31,3 +31,37 @@ export const isColorDark = (hexColor: string): boolean => {
 
   return brightness < 128;
 }
+
+export const obfuscateData = (data: any) => btoa(encodeURIComponent(JSON.stringify(data)));
+
+export const deobfuscateData = (encoded: string) => {
+  try {
+    return JSON.parse(decodeURIComponent(atob(encoded)));
+  } catch (err) {
+    return [];
+  }
+};
+
+export const sanitizeText = (text: string): string => {
+  if (!text) return '';
+
+  let normalized = text.normalize("NFKD");
+
+  normalized = Array.from(normalized).map((char) => {
+    const code = char.codePointAt(0) ?? 0;
+    if (code >= 0x24B6 && code <= 0x24CF) return String.fromCharCode(code - 0x24B6 + 97);
+    if (code >= 0x24D0 && code <= 0x24E9) return String.fromCharCode(code - 0x24D0 + 97);
+    if (code >= 0x1F130 && code <= 0x1F149) return String.fromCharCode(code - 0x1F130 + 97);
+    if (code >= 0x1F150 && code <= 0x1F169) return String.fromCharCode(code - 0x1F150 + 97);
+    if (code >= 0x1F170 && code <= 0x1F189) return String.fromCharCode(code - 0x1F170 + 97);
+
+    return char;
+  }).join('');
+
+  const lookalikes: Record<string, string> = {
+    '0': 'o', '1': 'i', '3': 'e', '4': 'a', '5': 's', '7': 't', '8': 'b', '@': 'a'
+  };
+  normalized = Array.from(normalized).map(char => lookalikes[char] || char).join('');
+
+  return normalized.toLowerCase().replace(/[^a-z0-9]/g, '');
+};

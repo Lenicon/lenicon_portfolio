@@ -8,13 +8,9 @@ export interface Letter {
   date: string;
 }
 
-// 1000 entries is a safe ceiling to stay well under the 1MB Firestore document limit
 const MAX_ENTRIES_PER_SHARD = 1000; 
 
-/**
- * Submits a letter using a transaction to avoid race conditions.
- * Automatically provisions a new shard document when the threshold is hit.
- */
+
 export async function submitLetter(username: string, message: string, color: string) {
   const metaRef = doc(db, 'letters', '_metadata');
   const timestamp = new Date().toISOString();
@@ -30,7 +26,6 @@ export async function submitLetter(username: string, message: string, color: str
       currentCount = metaSnap.data().currentCount || 0;
     }
 
-    // Roll over to a new shard if current one is full
     if (currentCount >= MAX_ENTRIES_PER_SHARD) {
       highestShard += 1;
       currentCount = 0;
@@ -46,15 +41,11 @@ export async function submitLetter(username: string, message: string, color: str
 
     currentBatch.push(jsonStringEntry);
 
-    // Write metadata updates and shard array updates atomically
     transaction.set(metaRef, { highestShard, currentCount: currentCount + 1 }, { merge: true });
     transaction.set(shardRef, { batch: currentBatch }, { merge: true });
   });
 }
 
-/**
- * Fetches the metadata to find out what the highest active shard is.
- */
 export async function getHighestShardId(): Promise<number> {
   const metaRef = doc(db, 'letters', '_metadata');
   const metaSnap = await getDoc(metaRef);
@@ -64,9 +55,6 @@ export async function getHighestShardId(): Promise<number> {
   return 1;
 }
 
-/**
- * Fetches and parses a single shard's array.
- */
 export async function fetchShardLetters(shardId: number): Promise<Letter[]> {
   const shardRef = doc(db, 'letters', shardId.toString());
   const shardSnap = await getDoc(shardRef);

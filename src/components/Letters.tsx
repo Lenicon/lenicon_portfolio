@@ -2,7 +2,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { submitLetter, getHighestShardId, fetchShardLetters, Letter } from '@/lib/letters';
-import { isColorDark } from '@/lib/utils';
+import { deobfuscateData, isColorDark, obfuscateData, sanitizeText } from '@/lib/utils';
+import { inthedark } from '@/lib/inthedark';
+
+const LOCAL_STORAGE_KEY = '_sys_session_cache_data';
+
 
 export default function Letters({ onClose }: { onClose: () => void }) {
   const [username, setUsername] = useState('');
@@ -24,8 +28,13 @@ export default function Letters({ onClose }: { onClose: () => void }) {
       try {
         const highestId = await getHighestShardId();
         setCurrentShard(highestId);
-        const data = await fetchShardLetters(highestId);
-        setLetters(data.reverse()); 
+        const serverData = await fetchShardLetters(highestId);
+        const invertedServerData = serverData.reverse();
+
+        const savedRaw = localStorage.getItem(LOCAL_STORAGE_KEY);
+        const localShadowed: Letter[] = savedRaw ? deobfuscateData(savedRaw) : [];
+        
+        setLetters([...localShadowed, ...invertedServerData]);
       } catch (err) {
         console.error(err);
       } finally {
@@ -55,19 +64,42 @@ export default function Letters({ onClose }: { onClose: () => void }) {
     if (!username.trim() || !message.trim() || submitting) return;
 
     setSubmitting(true);
+
+
+    const cleanMessage = sanitizeText(message.toLowerCase());
+    const cleanUsername = sanitizeText(username.toLowerCase());
+    const isDonnyDark = inthedark.some(word => cleanMessage.includes(word) || cleanUsername.includes(word));
+
     try {
-      await submitLetter(username, message, color);
-      
       const localNewLetter: Letter = {
-        username,
-        message,
+        username: username.trim(),
+        message: message.trim(),
         color,
         date: new Date().toISOString()
       };
-      setLetters((prev) => [localNewLetter, ...prev]);
+
+      if (isDonnyDark){
+        await new Promise((resolve)=>setTimeout(resolve, 600));
+        
+        const savedRaw = localStorage.getItem(LOCAL_STORAGE_KEY);
+        const currentShadowed: Letter[] = savedRaw ? deobfuscateData(savedRaw) : [];
+        currentShadowed.unshift(localNewLetter);
+
+        localStorage.setItem(LOCAL_STORAGE_KEY, obfuscateData(currentShadowed));
+
+        setLetters((prev) => [localNewLetter, ...prev]);
+
+      }
+      else {
+        await submitLetter(username, message, color);
+        setLetters((prev) => [localNewLetter, ...prev]);
+
+      }
+      
+      
       setMessage('');
     } catch (err) {
-      alert("Failed to submit comment!");
+      alert("Failed to send letter!");
       console.error(err);
     } finally {
       setSubmitting(false);

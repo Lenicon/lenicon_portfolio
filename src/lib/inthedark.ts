@@ -1,0 +1,1 @@
+export const inthedark = ['nigger', 'nazi', 'charliekirk', 'epstein', 'trump', 'porn', 'hentai'];
