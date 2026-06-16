@@ -127,7 +127,7 @@ export default function Page() {
             max-w-none object-contain block origin-bottom-right
             
             " 
-          src="/images/about/dude.png" 
+          src="/images/about/dude.webp" 
           alt="Hertz Lenin"
           style={{
             filter: 'drop-shadow(4px 0px 0px black) drop-shadow(-4px 0px 0px black) drop-shadow(0px 4px 0px black) drop-shadow(0px -4px 0px black) drop-shadow(-20px 20px 0px black)'
