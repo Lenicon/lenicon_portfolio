@@ -57,7 +57,7 @@ export default function Page() {
             { name:'Itch.io', src: 'itchio.png', url: 'https://lenicon.itch.io' },
             { name:'Github', src: 'github_white.png', url: 'https://github.com/Lenicon' }
           ].map((item) => (
-            item.url.startsWith('http') ?
+            item.url.startsWith('http') || item.url.startsWith('mailto') ?
             <Link 
               key={item.name} 
               href={item.url}
