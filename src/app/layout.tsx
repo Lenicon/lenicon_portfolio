@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   verification: {
     google: "jt6JJFqMzv_eMk4EEFBJw4Fkre3WHd7G3mzy2KF1EvY"
   },
+
   openGraph: {
     title: "Len.icon",
     description: "Portfolio of Hertz Miscreola (Len.icon) - A computer science graduate experienced in web and game development.",
@@ -24,6 +25,16 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
     type: "website",
+  },
+
+  icons: {
+    icon: [
+      {
+        url: '/favicon.ico',
+        sizes: '32x32',
+        type: 'image/x-icon',
+      },
+    ],
   },
 
   twitter: {
@@ -42,6 +53,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              'name': 'Len.icon',
+              'alternateName': 'LeniconDev',
+              'url': 'https://lenicondev.web.app/',
+            }),
+          }}
+        />
+      </head>
       <body>
 
         <main>
