@@ -19,9 +19,6 @@
   animation: animateStripes 20s linear infinite;
 }
 
-html {
-  
-}
 
 @keyframes animateStripes {
   100%{
