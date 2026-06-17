@@ -4,22 +4,22 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Len.icon',
-  description: 'Portfolio of Hertz Miscreola (Len.icon) - A computer science graduate experienced in web, game, and software development.',
-  keywords: ['Web Developer', 'Next.js', 'Portfolio', 'Hertz Lenin C. Miscreola', 'Len.icon', 'Lenicon', "Game Developer"],
+  description: 'A whimsical portfolio created by Hertz Miscreola (Len.icon), Builder of Dreams. Come visit and write a letter!',
+  keywords: ['Web Developer', 'Next.js', 'Portfolio', 'Hertz Miscreola', 'Len.icon', 'Lenicon', "Game Developer", "Developer", "Games", "Fun", "Len"],
   verification: {
     google: "jt6JJFqMzv_eMk4EEFBJw4Fkre3WHd7G3mzy2KF1EvY"
   },
 
   openGraph: {
     title: "Len.icon",
-    description: "Portfolio of Hertz Miscreola (Len.icon) - A computer science graduate experienced in web and game development.",
+    description: "A whimsical portfolio created by Hertz Miscreola (Len.icon), Builder of Dreams. Come visit and write a letter!",
     url: "https://lenicondev.web.app",
     siteName: "Len.icon",
     images: [
       {
         url: "https://lenicondev.web.app/images/og-preview.png",
-        width: 1200,
-        height: 630,
+        width: 1918,
+        height: 1078,
         alt: "Len.icon Portfolio Preview",
       },
     ],
@@ -28,19 +28,15 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: [
-      {
-        url: '/favicon.ico',
-        sizes: '32x32',
-        type: 'image/x-icon',
-      },
-    ],
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
 
   twitter: {
     card: "summary_large_image",
     title: "Len.icon",
-    description: "Portfolio of Hertz Miscreola (Len.icon) - A computer science graduate experienced in web, game, and software development.",
+    description: "A whimsical portfolio created by Hertz Miscreola (Len.icon), Builder of Dreams. Come visit and write a letter!",
     images: ["https://lenicondev.web.app/images/og-preview.png"],
   },
 };
