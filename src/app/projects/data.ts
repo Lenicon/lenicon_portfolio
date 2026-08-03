@@ -1,5 +1,14 @@
 export const gamesData = [
     {
+        id: 12,
+        blackbg: false,
+        date: '26 July 2026',
+        name: "Dating.data",
+        icon: 'https://img.itch.zone/aW1nLzI5MDI5NzEwLnBuZw==/32x32%23/e7QYwx.png',
+        link: 'https://wavedash.com/games/dating-data',
+        desc: "A blind date between two faulty robots.\nI just wanted an excuse to create this unique mechanic of connecting words, and building my own dialogue interpreter similar to RenPy in Godot. I did not improve the story whatsoever, but the insides are worth it, similar to Light Blue.\nMade with Godot 4 for the Wavedash Game Jam."
+    },
+    {
         id: 1,
         blackbg: false,
         date: '18 April 2026',
