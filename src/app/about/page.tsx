@@ -1,5 +1,5 @@
 import TransitionLink from "@/components/TransitionLink";
-import { yearsFrom } from "@/lib/utils";
+import { yearsFrom, getAge } from "@/lib/utils";
 import Link from "next/link";
 
 
@@ -18,7 +18,7 @@ export default function Page() {
         {/* INFO CARD */}
         <div className="w-full max-w-[40rem] flex flex-col gap-5 text-justify p-8 bg-white border-4 border-black shadow-[-8px_8px_0px_0px_black] sm:shadow-[-12px_12px_0px_0px_black] rounded-lg">
           <p className="text-base sm:text-lg">
-            I have honed my craft ever since I touched a book about programming back in elementary, so it's been around <b>{yearsFrom(2016)} years</b> or so.
+            I have honed my craft ever since I touched a book about programming back in elementary and I'm currently <b>{getAge("2006-08-08")} years old</b>, so it's been around <b>{yearsFrom(2016)} years</b> or so.
           </p>
           <p className="text-base sm:text-lg">
             I have built many games in <a href="https://lenicon.itch.io" target="_blank" rel="noopener noreferrer" className="text-[#fa5c5c] font-bold hover:underline">itch.io</a> and have worked on a multitude of projects in <a href="https://github.com/Lenicon" target="_blank" rel="noopener noreferrer" className="text-[#24292E] font-bold hover:underline">Github</a>.
