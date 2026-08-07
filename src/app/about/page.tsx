@@ -1,9 +1,12 @@
+import DudeImage from "@/components/DudeImage";
 import TransitionLink from "@/components/TransitionLink";
-import { yearsFrom, getAge } from "@/lib/utils";
+import { yearsFrom, getAge, isBirthday, isAprilFools, isChristmas, isHalloween } from "@/lib/utils";
 import Link from "next/link";
 
 
 export default function Page() {
+  
+
   return (
     <section className="overflow-hidden flex flex-col lg:flex-row items-center lg:items-start lg:justify-start pt-5 px-5 sm:p-10 sm:p-10 gap-10 lg:gap-16 overflow-x-hidden min-h-screen relative">
       
@@ -118,23 +121,7 @@ export default function Page() {
       </div>
 
       {/* IMAGE */}
-      <div className="w-full lg:w-auto flex justify-center mt-10 mb-[-2rem] sm:mb-0 lg:mt-0 lg:fixed lg:bottom-0 lg:-right-[1rem] lg:z-0">
-        
-        <img 
-          className="
-            w-[95%] sm:w-[80%] 
-            md:w-[70vw] lg:w-[55vw] 
-            max-w-none object-contain block origin-bottom-right
-            
-            " 
-          src="/images/about/dude.webp" 
-          alt="Hertz Lenin"
-          style={{
-            filter: 'drop-shadow(4px 0px 0px black) drop-shadow(-4px 0px 0px black) drop-shadow(0px 4px 0px black) drop-shadow(0px -4px 0px black) drop-shadow(-20px 20px 0px black)'
-          }}
-        />
-
-      </div>
+      <DudeImage/>
 
       {/* HOME BUTTON */}
       <TransitionLink backgroundStyle="background-space" href="/" className="group fixed top-7 right-7 lg:top-5 lg:right-5 w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] z-50 cursor-pointer select-none">

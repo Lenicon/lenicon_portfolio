@@ -80,23 +80,43 @@ export const getAge = (birthDateString: string): number => {
   return age;
 }
 
-export const isBirthday = (): boolean => {
-  const today = new Date();
-  const currentYear = today.getFullYear();
-
-  // From August 8 to August 10
-  const birthday = new Date(currentYear, 7, 8);
-  const rangeEnd = new Date(currentYear, 7, 10);
-
-  today.setHours(0, 0, 0, 0);
-  birthday.setHours(0, 0, 0, 0);
-  rangeEnd.setHours(0, 0, 0, 0);
-
-  return today >= birthday && today <= rangeEnd;
-}
-
 export const getOrdinalSuffix = (n: number): string => {
   const s = ["th", "st", "nd", "rd"];
   const v = n % 100;
   return n.toString() + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+export const isDateRange = (fromMonth: number, fromDay: number, toMonth: number, toDay: number): boolean => {
+  const today = new Date();
+  const currentYear = today.getFullYear();
+
+  // 0 - 11 (January - December)
+  const rangeStart = new Date(currentYear, fromMonth, fromDay);
+  const rangeEnd = new Date(currentYear, toMonth, toDay);
+
+  today.setHours(0, 0, 0, 0);
+  rangeStart.setHours(0, 0, 0, 0);
+  rangeEnd.setHours(0, 0, 0, 0);
+
+  return today >= rangeStart && today <= rangeEnd;
+}
+
+export const isBirthday = (): boolean => {
+  return isDateRange(7, 8, 7, 10);
+}
+
+export const isChristmas = (): boolean => {
+  return isDateRange(11, 1, 11, 31);
+}
+
+export const isAprilFools = (): boolean => {
+  return isDateRange(3, 1, 3, 1);
+}
+
+export const isHalloween = (): boolean => {
+  return isDateRange(9, 31, 10, 2);
+}
+
+export const isNewYear = (): boolean => {
+  return isDateRange(0, 1, 0, 1);
 }
