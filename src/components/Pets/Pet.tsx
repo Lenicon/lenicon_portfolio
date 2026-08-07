@@ -11,7 +11,16 @@ const BASE_HEIGHT = 33;
 const GRAB_X_ORIGINAL = 13;
 const GRAB_Y_ORIGINAL = 10;
 
-const HAT_BASE_OFFSET_Y = 12;
+const BASE_HAT_WIDTH = 9.5;
+const BASE_HAT_HEIGHT = 13.5;
+const HAT_SPRITE_COUNT = 7;
+
+const HAT_ANCHORS: Record<'idle' | 'walk' | 'grab' | 'fall', { x: number; y: number }> = {
+  idle: { x: 14, y: 4 },
+  walk: { x: 14, y: 4 },
+  grab: { x: 18, y: 9 },
+  fall: { x: 18, y: 28 },
+};
 
 
 export default function Pet({ 
@@ -30,6 +39,10 @@ export default function Pet({
 
   const [petScale, setPetScale] = useState(2.5);
   const [hatIndex, setHatIndex] = useState(0);
+  const [position, setPosition] = useState({ x: initialX, y: initialY }); 
+  const [action, setAction] = useState<'idle' | 'walk' | 'grab' | 'fall'>('idle');
+  const [direction, setDirection] = useState<1 | -1>(1); 
+  const [speech, setSpeech] = useState<string | null>(null);
 
   useEffect(() => {
     if (isBirthday()) {
@@ -45,19 +58,26 @@ export default function Pet({
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
+  
   const PET_WIDTH = BASE_WIDTH * petScale;
   const PET_HEIGHT = BASE_HEIGHT * petScale;
+
+  const HAT_WIDTH = BASE_HAT_WIDTH * petScale;
+  const HAT_HEIGHT = BASE_HAT_HEIGHT * petScale;
+
+  const HAT_ANCHOR = HAT_ANCHORS[action];
+  const FACING_ANCHOR_X = direction === 1
+  ? HAT_ANCHOR.x
+  : BASE_WIDTH - HAT_ANCHOR.x;
+
+const HAT_LEFT = FACING_ANCHOR_X * petScale - HAT_WIDTH / 2;
+const HAT_TOP = HAT_ANCHOR.y * petScale - HAT_HEIGHT;
 
   const GRAB_X_SCALED = GRAB_X_ORIGINAL * petScale;
   const GRAB_Y_SCALED = GRAB_Y_ORIGINAL * petScale;
 
   const EDGE_PADDING = Math.min(90, window.innerWidth * 0.15); 
 
-  const [position, setPosition] = useState({ x: initialX, y: initialY }); 
-  const [action, setAction] = useState<'idle' | 'walk' | 'grab' | 'fall'>('idle');
-  const [direction, setDirection] = useState<1 | -1>(1); 
-  const [speech, setSpeech] = useState<string | null>(null);
   
   const isDragging = useRef(false);
 
@@ -231,37 +251,13 @@ export default function Pet({
         </div>
       )}
 
-      {/* Birthday Hat */}
-      {isBirthday() && (
-        <div 
-          className="absolute pointer-events-none transition-transform duration-200"
-          style={{
-            width: `${19 * petScale}px`,
-            height: `${27 * petScale}px`,
-            backgroundImage: 'url(/images/pet/birthday_hats.png)',
-            backgroundSize: `${133 * petScale}px ${27 * petScale}px`,
-            backgroundPosition: `-${hatIndex * 19 * petScale}px 0px`,
-            left: '50%',
-            // If falling, flip the hat and stick it to the bottom. Otherwise stick it to the top.
-            ...(action === 'fall' 
-                ? { 
-                    bottom: `-${HAT_BASE_OFFSET_Y * petScale}px`, 
-                    transform: `translateX(-50%) scaleX(${direction}) rotate(180deg)` 
-                  }
-                : { 
-                    top: `-${HAT_BASE_OFFSET_Y * petScale}px`, 
-                    transform: `translateX(-50%) scaleX(${direction})` 
-                  }
-            ),
-            zIndex: 40,
-          }}
-        />
-      )}
 
       {/* Username */}
-      <div className="text-[10px] sm:text-[12px] text-center font-upheaval text-white bg-black/50 px-1.5 py-0.5 rounded pointer-events-none mb-1 shadow-sm whitespace-nowrap">
+      <div className="relative z-50 text-[10px] sm:text-[12px] text-center font-upheaval text-white bg-black/50 px-1.5 py-0.5 rounded pointer-events-none mb-1 shadow-sm whitespace-nowrap">
         {name.length > 12 ? `${name.substring(0, 12)}...` : name}
       </div>
+
+      
 
       {/* Dynamic Color */}
       <div 
@@ -272,6 +268,29 @@ export default function Pet({
             : `drop-shadow(0 0 3px ${color}80)`,
         }}
       >
+
+        {/* Birthday Hat */}
+        {isBirthday() && (
+          <div 
+            className="absolute pointer-events-none"
+            style={{
+              width: `${HAT_WIDTH}px`,
+              height: `${HAT_HEIGHT}px`,
+              backgroundImage: 'url(/images/pet/birthday_hats.png)',
+              backgroundSize: `${HAT_WIDTH * HAT_SPRITE_COUNT}px ${HAT_HEIGHT}px`,
+              backgroundPosition: `-${hatIndex * HAT_WIDTH}px 0px`,
+              left: `${HAT_LEFT}px`,
+              top: `${HAT_TOP}px`,
+              // Fall pose renders the hat upside down; every other pose
+              // just mirrors with the sprite's facing direction.
+              transform: action === 'fall'
+                ? `scaleX(${direction}) rotate(180deg)`
+                : `scaleX(${direction})`,
+              zIndex: 40,
+            }}
+          />
+        )}
+
         <div 
           className="w-full h-full pointer-events-none transition-transform duration-200"
           style={{

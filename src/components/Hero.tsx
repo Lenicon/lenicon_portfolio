@@ -34,7 +34,7 @@ export default function Hero() {
         <div className="relative inline-block select-none">
           
           {isBirthday() && (
-            <p className="absolute top-9 -left-1 w-full text-center font-upheaval text-[8px] sm:text-xs md:text-base lg:text-4xl text-white tracking-[0.2em] pointer-events-none opacity-90">
+            <p className="absolute top-3 sm:top-4 md:top-7 lg:top-9 -left-1 w-full text-center font-upheaval text-[15px] sm:text-2xl md:text-3xl lg:text-4xl text-white tracking-[0.2em] pointer-events-none opacity-90">
               HAPPY <span className='text-[var(--yellow)]'>{getOrdinalSuffix(getAge("2006-08-08"))}</span> BIRTHDAY
             </p>
           )}

@@ -85,7 +85,7 @@ export const isBirthday = (): boolean => {
   const currentYear = today.getFullYear();
 
   // From August 8 to August 10
-  const birthday = new Date(currentYear, 7, 7);
+  const birthday = new Date(currentYear, 7, 8);
   const rangeEnd = new Date(currentYear, 7, 10);
 
   today.setHours(0, 0, 0, 0);
