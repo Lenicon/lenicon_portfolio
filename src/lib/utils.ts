@@ -66,16 +66,37 @@ export const sanitizeText = (text: string): string => {
   return normalized.toLowerCase().replace(/[^a-z0-9]/g, '');
 };
 
-export const getAge = (birthDateString: string) => {
-    const today = new Date();
-    const birthDate = new Date(birthDateString);
-    
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDifference = today.getMonth() - birthDate.getMonth();
-    
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    
-    return age;
+export const getAge = (birthDateString: string): number => {
+  const today = new Date();
+  const birthDate = new Date(birthDateString);
+  
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDifference = today.getMonth() - birthDate.getMonth();
+  
+  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  
+  return age;
+}
+
+export const isBirthday = (): boolean => {
+  const today = new Date();
+  const currentYear = today.getFullYear();
+
+  // From August 8 to August 10
+  const birthday = new Date(currentYear, 7, 7);
+  const rangeEnd = new Date(currentYear, 7, 10);
+
+  today.setHours(0, 0, 0, 0);
+  birthday.setHours(0, 0, 0, 0);
+  rangeEnd.setHours(0, 0, 0, 0);
+
+  return today >= birthday && today <= rangeEnd;
+}
+
+export const getOrdinalSuffix = (n: number): string => {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return n.toString() + (s[(v - 20) % 10] || s[v] || s[0]);
 }

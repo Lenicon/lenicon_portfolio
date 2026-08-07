@@ -1,6 +1,6 @@
 'use client';
 
-import { randomIndex } from '@/lib/utils';
+import { isBirthday, randomIndex } from '@/lib/utils';
 import { useState, useEffect, useRef } from 'react';
 
 const GRAB_DIALOGUE = ["Release me!", "WAHHH!", "HELP!!", "Drop me gently!", "WOAHHH!", "CAREFUL NOW!"];
@@ -10,6 +10,9 @@ const BASE_HEIGHT = 33;
 
 const GRAB_X_ORIGINAL = 13;
 const GRAB_Y_ORIGINAL = 10;
+
+const HAT_BASE_OFFSET_Y = 12;
+
 
 export default function Pet({ 
   name, 
@@ -26,8 +29,13 @@ export default function Pet({
 }) {
 
   const [petScale, setPetScale] = useState(2.5);
+  const [hatIndex, setHatIndex] = useState(0);
 
   useEffect(() => {
+    if (isBirthday()) {
+      setHatIndex(Math.floor(Math.random() * 7));
+    }
+
     const handleResize = () => {
       if (window.innerWidth < 640) setPetScale(1.5); // Small scale
       else setPetScale(2.0); // Medium scale
@@ -221,6 +229,33 @@ export default function Pet({
         <div className="absolute bottom-full mb-4 bg-white text-black px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-fredoka pointer-events-none text-center shadow-md w-max max-w-[160px] sm:max-w-[250px] break-words after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-white">
             {speech}
         </div>
+      )}
+
+      {/* Birthday Hat */}
+      {isBirthday() && (
+        <div 
+          className="absolute pointer-events-none transition-transform duration-200"
+          style={{
+            width: `${19 * petScale}px`,
+            height: `${27 * petScale}px`,
+            backgroundImage: 'url(/images/pet/birthday_hats.png)',
+            backgroundSize: `${133 * petScale}px ${27 * petScale}px`,
+            backgroundPosition: `-${hatIndex * 19 * petScale}px 0px`,
+            left: '50%',
+            // If falling, flip the hat and stick it to the bottom. Otherwise stick it to the top.
+            ...(action === 'fall' 
+                ? { 
+                    bottom: `-${HAT_BASE_OFFSET_Y * petScale}px`, 
+                    transform: `translateX(-50%) scaleX(${direction}) rotate(180deg)` 
+                  }
+                : { 
+                    top: `-${HAT_BASE_OFFSET_Y * petScale}px`, 
+                    transform: `translateX(-50%) scaleX(${direction})` 
+                  }
+            ),
+            zIndex: 40,
+          }}
+        />
       )}
 
       {/* Username */}

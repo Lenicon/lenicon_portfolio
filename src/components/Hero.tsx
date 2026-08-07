@@ -5,6 +5,7 @@ import PetManager from './Pets/PetManager';
 import TransitionLink from './TransitionLink';
 import { useState } from 'react';
 import Letters from './Letters';
+import { getAge, getOrdinalSuffix, isBirthday } from '@/lib/utils';
 
 
 const Mail = dynamic(() => import('./Mail'), {
@@ -26,11 +27,18 @@ export default function Hero() {
   const [isLettersOpen, setIsLettersOpen] = useState(false);
 
   return (
-    <section className="w-full h-screen flex items-center justify-center text-white px-4 overflow-hidden select-none">
+    <section className="w-full h-dvh flex items-center justify-center text-white px-4 overflow-hidden select-none">
 
       <div className="flex flex-row items-center justify-center gap-4 sm:gap-8 md:gap-12 max-w-full">
         
         <div className="relative inline-block select-none">
+          
+          {isBirthday() && (
+            <p className="absolute top-9 -left-1 w-full text-center font-upheaval text-[8px] sm:text-xs md:text-base lg:text-4xl text-white tracking-[0.2em] pointer-events-none opacity-90">
+              HAPPY <span className='text-[var(--yellow)]'>{getOrdinalSuffix(getAge("2006-08-08"))}</span> BIRTHDAY
+            </p>
+          )}
+
           <h1 className="text-9xl sm:text-[12rem] md:text-[15rem] lg:text-[20rem] font-upheaval text-[var(--yellow)] leading-none m-0 p-0 pointer-events-none">
             LEN
           </h1>
