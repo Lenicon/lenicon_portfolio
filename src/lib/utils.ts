@@ -101,6 +101,15 @@ export const isDateRange = (fromMonth: number, fromDay: number, toMonth: number,
   return today >= rangeStart && today <= rangeEnd;
 }
 
+export const getRandomColor = (): string => {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 export const isBirthday = (): boolean => {
   return isDateRange(7, 8, 7, 10);
 }

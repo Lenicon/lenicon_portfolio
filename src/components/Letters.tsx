@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { submitLetter, getHighestShardId, fetchShardLetters, Letter } from '@/lib/letters';
-import { deobfuscateData, isColorDark, obfuscateData, sanitizeText } from '@/lib/utils';
+import { deobfuscateData, getRandomColor, isColorDark, obfuscateData, sanitizeText } from '@/lib/utils';
 import { inthedark } from '@/lib/inthedark';
 
 const LOCAL_STORAGE_KEY = '_sys_session_cache_data';
@@ -11,7 +11,7 @@ const LOCAL_STORAGE_KEY = '_sys_session_cache_data';
 export default function Letters({ onClose }: { onClose: () => void }) {
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
-  const [color, setColor] = useState('#97f9f9'); // Default solid color
+  const [color, setColor] = useState(getRandomColor()); // Default solid color
   const [letters, setLetters] = useState<Letter[]>([]);
   const [currentShard, setCurrentShard] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
