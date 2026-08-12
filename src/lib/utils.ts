@@ -110,6 +110,27 @@ export const getRandomColor = (): string => {
   return color;
 }
 
+export const fetchPastebinData = async (id: string): Promise<any[]> => {
+  try {
+    const response = await fetch(`https://pastebin.com/raw/${id}`, {
+      next: { revalidate: 3600 } 
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.statusText}`);
+    }
+
+    const text = await response.text();
+    const data = new Function(`return ${text}`)();
+
+    return Array.isArray(data) ? data : [];
+  } catch (err) {
+    console.error(`Error fetching pastebin content (${id}):`, err);
+    return [];
+  }
+};
+
+// FOR EVENTS
 export const isBirthday = (): boolean => {
   return isDateRange(7, 8, 7, 10);
 }
