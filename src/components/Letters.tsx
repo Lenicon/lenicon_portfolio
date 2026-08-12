@@ -183,7 +183,15 @@ export default function Letters({ onClose }: { onClose: () => void }) {
                     })()
                 }}
 
-                ><img src="/images/eye-dropper-solid.svg" className="w-[20px]"/></div>
+                ><div className="w-[20px] h-[20px]"
+                  style={{
+                    backgroundColor: 'currentColor',
+                    WebkitMaskImage: 'url(/images/eye-dropper-solid.svg)',
+                    WebkitMaskSize: 'contain',
+                    WebkitMaskRepeat: 'no-repeat',
+                    WebkitMaskPosition: 'center',
+                  }}
+                /></div>
             </div>
 
             <div className="w-[1px] h-full bg-black flex-shrink-0" />
