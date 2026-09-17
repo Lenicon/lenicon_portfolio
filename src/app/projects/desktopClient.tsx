@@ -277,7 +277,7 @@ export default function DesktopClient({ projectsData }: DesktopClientProps) {
         >
           {/* Title Bar */}
           <div
-            className="bg-[#000080] text-white px-2 py-1 sm:px-3 sm:py-2 flex justify-between items-center cursor-default touch-none flex-shrink-0"
+            className="bg-[#000080] text-white px-2 py-1 sm:px-3 sm:py-2 flex justify-between items-center cursor-default touch-none shrink-0"
             onPointerDown={(e) => handlePointerDown(e, win.id, 'window', win.pos)}
           >
             <span className="font-bold text-xs sm:text-base tracking-wide truncate pr-2">C:\Desktop\{win.id}</span>
@@ -287,7 +287,7 @@ export default function DesktopClient({ projectsData }: DesktopClientProps) {
                 closeWindow(win.id);
               }}
               onPointerDown={(e) => e.stopPropagation()}
-              className="bg-[#c0c0c0] text-black font-bold h-5 w-5 sm:h-7 sm:w-7 flex items-center justify-center border-2 border-t-white border-l-white border-b-gray-800 border-r-gray-800 active:border-t-black active:border-l-black active:border-b-white active:border-r-white cursor-pointer text-sm sm:text-xl flex-shrink-0"
+              className="bg-[#c0c0c0] text-black font-bold h-5 w-5 sm:h-7 sm:w-7 flex items-center justify-center border-2 border-t-white border-l-white border-b-gray-800 border-r-gray-800 active:border-t-black active:border-l-black active:border-b-white active:border-r-white cursor-pointer text-sm sm:text-xl shrink-0"
             >
               x
             </button>
@@ -322,7 +322,7 @@ export default function DesktopClient({ projectsData }: DesktopClientProps) {
               projectsData[win.id].map((project) => (
                 <div 
                   key={project.id} 
-                  className="relative flex flex-col items-center w-16 sm:w-20 flex-shrink-0 hover:text-white group"
+                  className="relative flex flex-col items-center w-16 sm:w-20 shrink-0 hover:text-white group"
                   onMouseEnter={() => setHoveredProject({
                     windowId: win.id,
                     name: project.name,
@@ -374,14 +374,14 @@ export default function DesktopClient({ projectsData }: DesktopClientProps) {
           {hoveredProject && hoveredProject.windowId === win.id && (
             <div className="
               fixed bottom-4 left-4 right-4 max-w-none m-0 p-3 text-xs
-              sm:absolute sm:left-2 sm:bottom-full sm:mb-2 sm:w-max sm:max-w-[30rem] sm:text-sm
-              bg-[#ffffe1] border border-black text-black z-[9999] shadow-md pointer-events-none
+              sm:absolute sm:left-2 sm:bottom-full sm:mb-2 sm:w-max sm:max-w-120 sm:text-sm
+              bg-[#ffffe1] border border-black text-black z-9999 shadow-md pointer-events-none
             ">
               <span className='flex justify-between font-bold gap-4 border-b border-black/20 pb-1 mb-1 sm:border-0 sm:pb-0 sm:mb-0'>
                 <span>{hoveredProject.name}</span>
                 <span className="opacity-80 font-normal sm:font-bold">{hoveredProject.date}</span>
               </span>
-              <p className="whitespace-pre-line mt-1 sm:mt-2 text-justify break-words leading-relaxed max-h-[25vh] overflow-y-auto">
+              <p className="whitespace-pre-line mt-1 sm:mt-2 text-justify wrap-break-word leading-relaxed max-h-[25vh] overflow-y-auto">
                 {hoveredProject.desc}
               </p>
             </div>
@@ -389,7 +389,7 @@ export default function DesktopClient({ projectsData }: DesktopClientProps) {
 
           {/* Resize Corner chuhcu*/}
           <div
-            className="absolute bottom-0 right-0 w-5 h-5 sm:w-6 sm:h-6 cursor-se-resize touch-none z-50 flex items-end justify-end p-[2px]"
+            className="absolute bottom-0 right-0 w-5 h-5 sm:w-6 sm:h-6 cursor-se-resize touch-none z-50 flex items-end justify-end p-0.5"
             onPointerDown={(e) => {
               e.stopPropagation();
               handlePointerDown(e, win.id, 'resize', win.pos, win.size);
