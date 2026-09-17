@@ -35,11 +35,11 @@ export default function Hero() {
           
           {isBirthday() && (
             <p className="absolute top-3 sm:top-4 md:top-7 lg:top-9 -left-1 w-full text-center font-upheaval text-[15px] sm:text-2xl md:text-3xl lg:text-4xl text-white tracking-[0.2em] pointer-events-none opacity-90">
-              HAPPY <span className='text-[var(--yellow)]'>{getOrdinalSuffix(getAge("2006-08-08"))}</span> BIRTHDAY
+              HAPPY <span className='text-(--yellow)'>{getOrdinalSuffix(getAge("2006-08-08"))}</span> BIRTHDAY
             </p>
           )}
 
-          <h1 className="text-9xl sm:text-[12rem] md:text-[15rem] lg:text-[20rem] font-upheaval text-[var(--yellow)] leading-none m-0 p-0 pointer-events-none">
+          <h1 className="text-9xl sm:text-[12rem] md:text-[15rem] lg:text-[20rem] font-upheaval text-(--yellow) leading-none m-0 p-0 pointer-events-none">
             LEN
           </h1>
 
@@ -80,7 +80,7 @@ export default function Hero() {
 
         {/* ICON SPHERE */}
         <TransitionLink href="/about" className="group block relative" backgroundStyle="background-about">
-          <div data-platform="sphere" className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-[350px] lg:h-[350px] items-center justify-center overflow-visible">
+          <div data-platform="sphere" className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-87.5 lg:h-87.5 items-center justify-center overflow-visible">
             <IconSphere />
             
           </div>
@@ -94,7 +94,7 @@ export default function Hero() {
                   fill="transparent" 
                 />
               </defs>
-              <text className="fill-[var(--yellow)] font-upheaval text-[28px] sm:text-[42px] md:text-[52px] lg:text-[64px] tracking-[0.1em]">
+              <text className="fill-(--yellow) font-upheaval text-[28px] sm:text-[42px] md:text-[52px] lg:text-[64px] tracking-widest">
                 <textPath href="#textCurveTop" startOffset="50%" textAnchor="middle">
                   WHO AM I?
                 </textPath>
@@ -116,7 +116,7 @@ export default function Hero() {
                 />
               </defs>
               
-              <text className="fill-[var(--yellow)] font-upheaval text-[28px] sm:text-[42px] md:text-[52px] lg:text-[64px] tracking-[0.1em]">
+              <text className="fill-(--yellow) font-upheaval text-[28px] sm:text-[42px] md:text-[52px] lg:text-[64px] tracking-widest">
                 <textPath href="#textCurveResponsive" startOffset="50%" textAnchor="middle">
                   WHO AM I?
                 </textPath>
@@ -140,7 +140,7 @@ export default function Hero() {
           <Laptop/>
         </div>
 
-        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--blue)] font-upheaval tracking-[0.1em] text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
+        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-(--blue) font-upheaval tracking-widest text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
           PROJECTS :O
         </div>
       </TransitionLink>
@@ -155,7 +155,7 @@ export default function Hero() {
           <Mail/>
         </div>
 
-        <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--pink)] font-upheaval tracking-[0.1em] text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
+        <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap text-(--pink) font-upheaval tracking-widest text-center pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">
           LETTERS {"<3"}
         </div>
       </div>

@@ -8,18 +8,18 @@ export default function Page() {
   
 
   return (
-    <section className="overflow-hidden flex flex-col lg:flex-row items-center lg:items-start lg:justify-start pt-5 px-5 sm:p-10 sm:p-10 gap-10 lg:gap-16 overflow-x-hidden min-h-screen relative">
+    <section className="overflow-hidden flex flex-col lg:flex-row items-center lg:items-start lg:justify-start pt-5 px-5 sm:p-10 gap-10 lg:gap-16 overflow-x-hidden min-h-screen relative">
       
       <div className="w-full lg:w-1/2 ml-5 flex flex-col items-center lg:items-start gap-8 z-10">
         
         {/* NAME CARD */}
-        <div className="w-full max-w-[40rem] flex flex-col gap-2 sm:gap-3 text-justify p-8 bg-white border-4 border-black shadow-[-8px_8px_0px_0px_black] sm:shadow-[-12px_12px_0px_0px_black] rounded-lg">
+        <div className="w-full max-w-160 flex flex-col gap-2 sm:gap-3 text-justify p-8 bg-white border-4 border-black shadow-[-8px_8px_0px_0px_black] sm:shadow-[-12px_12px_0px_0px_black] rounded-lg">
             <p className="text-2xl sm:text-4xl font-extrabold text-center uppercase">Hertz Lenin C. Miscreola</p>
             <p className="text-lg sm:text-xl font-semibold text-center">Game / Web / Software Developer</p>
         </div>
 
         {/* INFO CARD */}
-        <div className="w-full max-w-[40rem] flex flex-col gap-5 text-justify p-8 bg-white border-4 border-black shadow-[-8px_8px_0px_0px_black] sm:shadow-[-12px_12px_0px_0px_black] rounded-lg">
+        <div className="w-full max-w-160 flex flex-col gap-5 text-justify p-8 bg-white border-4 border-black shadow-[-8px_8px_0px_0px_black] sm:shadow-[-12px_12px_0px_0px_black] rounded-lg">
           <p className="text-base sm:text-lg">
             I have honed my craft ever since I touched a book about programming back in elementary and I'm currently <b>{getAge("2006-08-08")} years old</b>, so it's been around <b>{yearsFrom(2016)} years</b> or so.
           </p>
@@ -34,7 +34,7 @@ export default function Page() {
         </div>
 
         {/* FOR ICONS  */}
-        <div className="w-full max-w-[40rem] flex flex-wrap gap-4 items-center justify-center mt-2">
+        <div className="w-full max-w-160 flex flex-wrap gap-4 items-center justify-center mt-2">
           
           <svg className="absolute w-0 h-0" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -66,13 +66,13 @@ export default function Page() {
               href={item.url}
               target='_blank'
               rel="noopener noreferrer"
-              className="group relative w-[70px] h-[70px] sm:w-[85px] sm:h-[85px] flex items-center justify-center p-1 cursor-pointer select-none"
+              className="group relative w-17.5 h-17.5 sm:w-21.25 sm:h-21.25 flex items-center justify-center p-1 cursor-pointer select-none"
             >
               <img 
                 src={"/images/about/icons/" + item.src}
                 alt=""
                 aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-[10px] translate-y-[10px]"
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-2.5 translate-y-2.5"
                 style={{
                   filter: 'url(#img-black-shadow)'
                 }}
@@ -93,13 +93,13 @@ export default function Page() {
               backgroundStyle="background-resume"
               key={item.name} 
               href={item.url}
-              className="group relative w-[70px] h-[70px] sm:w-[85px] sm:h-[85px] flex items-center justify-center p-1 cursor-pointer select-none"
+              className="group relative w-17.5 h-17.5 sm:w-21.25 sm:h-21.25 flex items-center justify-center p-1 cursor-pointer select-none"
             >
               <img 
                 src={"/images/about/icons/" + item.src}
                 alt=""
                 aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-[10px] translate-y-[10px]"
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-2.5 translate-y-2.5"
                 style={{
                   filter: 'url(#img-black-shadow)'
                 }}
@@ -124,12 +124,12 @@ export default function Page() {
       <DudeImage/>
 
       {/* HOME BUTTON */}
-      <TransitionLink backgroundStyle="background-space" href="/" className="group fixed top-7 right-7 lg:top-5 lg:right-5 w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] z-50 cursor-pointer select-none">
+      <TransitionLink backgroundStyle="background-space" href="/" className="group fixed top-7 right-7 lg:top-5 lg:right-5 w-7.5 h-7.5 lg:w-12.5 lg:h-12.5 z-50 cursor-pointer select-none">
         <img 
           src="/images/about/icons/tent.png" 
           alt=""
           aria-hidden="true"
-          className="hidden md:block absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-[6px] translate-y-[6px]"
+          className="hidden md:block absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-1.5 translate-y-1.5"
           style={{ filter: 'url(#img-black-shadow)' }}
         />
 

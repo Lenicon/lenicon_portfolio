@@ -246,7 +246,7 @@ const HAT_TOP = HAT_ANCHOR.y * petScale - HAT_HEIGHT;
     >
       {/* Speech Bubble*/}
       {speech && (
-        <div className="absolute bottom-full mb-4 bg-white text-black px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-fredoka pointer-events-none text-center shadow-md w-max max-w-[160px] sm:max-w-[250px] break-words after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-white">
+        <div className="absolute bottom-full mb-4 bg-white text-black px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-fredoka pointer-events-none text-center shadow-md w-max max-w-40 sm:max-w-62.5 wrap-break-word after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-white">
             {speech}
         </div>
       )}

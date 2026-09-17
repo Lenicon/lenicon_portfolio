@@ -113,7 +113,7 @@ export const getRandomColor = (): string => {
 export const fetchPastebinData = async (id: string): Promise<any[]> => {
   try {
     const response = await fetch(`https://pastebin.com/raw/${id}`, {
-      next: { revalidate: 3600 } 
+      next: { revalidate: 60 } 
     });
 
     if (!response.ok) {

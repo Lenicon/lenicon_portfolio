@@ -93,7 +93,7 @@ export default function TransitionLink({
         onPointerMove={handleInternalPointerMove}
         onPointerUp={handleInternalPointerUp}
         className={`${className || ''} ${
-          isTransitioning ? 'z-[9997] animate-item-fade pointer-events-none' : ''
+          isTransitioning ? 'z-9997 animate-item-fade pointer-events-none' : ''
         }`} 
         {...props}
       >
@@ -102,7 +102,7 @@ export default function TransitionLink({
 
       {isTransitioning && (
         <div 
-          className={"fixed inset-0 z-[9995] pointer-events-none animate-circle-wipe " + backgroundStyle}
+          className={"fixed inset-0 z-9995 pointer-events-none animate-circle-wipe " + backgroundStyle}
           style={{ 
             ['--click-x' as any]: coords.x,
             ['--click-y' as any]: coords.y,

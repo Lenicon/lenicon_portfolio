@@ -108,11 +108,11 @@ export default function Letters({ onClose }: { onClose: () => void }) {
 
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4 backdrop-blur-sm select-text">
-      <div className="bg-white border-2 border-[var(--pink)] w-full max-w-2xl h-[85vh] flex flex-col overflow-hidden shadow-2xl">
+    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-100 p-4 backdrop-blur-sm select-text">
+      <div className="bg-white border-2 border-(--pink) w-full max-w-2xl h-[85vh] flex flex-col overflow-hidden shadow-2xl">
         
         {/* Header */}
-        <div className="p-4 border-b border-[var(--pink)] bg-[var(--pink)] flex justify-between items-center">
+        <div className="p-4 border-b border-(--pink) bg-(--pink) flex justify-between items-center">
           <h2 className="font-fredoka font-black text-red-900 text-2xl tracking-wide">WRITE A LETTER {"<3"}</h2>
           <button onClick={onClose} className="text-red-900 hover:text-black font-fredoka font-black text-xl">X</button>
         </div>
@@ -120,11 +120,11 @@ export default function Letters({ onClose }: { onClose: () => void }) {
         {/* Letters */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3 scroll-smooth black-scrollbar">
           {letters.map((c, i) => (
-            <div key={i} className=" flex flex-col border border-black flex">
-                <div className='p-2 flex gap-2 h-full w-full border-black border-b-1' style={{ color: isColorDark(c.color) ? "#fff":"#000", backgroundColor: c.color }}>
+            <div key={i} className=" flex-col border border-black flex">
+                <div className='p-2 flex gap-2 h-full w-full border-black border-b' style={{ color: isColorDark(c.color) ? "#fff":"#000", backgroundColor: c.color }}>
                     <span className='font-semibold font-fredoka'>{c.username}</span>
                 </div>
-                <p className="py-3 px-5 break-words text-black font-fredoka text-lg leading-relaxed">"{c.message}"</p>
+                <p className="py-3 px-5 wrap-break-word text-black font-fredoka text-lg leading-relaxed">"{c.message}"</p>
             </div>
           ))}
 
@@ -141,7 +141,7 @@ export default function Letters({ onClose }: { onClose: () => void }) {
         </div>
 
         {/* Letter Form */}
-        <form onSubmit={handleSubmit} className="p-4 border-t border-[var(--pink)] bg-[var(--pink)] space-y-3">
+        <form onSubmit={handleSubmit} className="p-4 border-t border-(--pink) bg-(--pink) space-y-3">
           <div className="flex gap-3 items-center h-10">
 
 
@@ -151,15 +151,15 @@ export default function Letters({ onClose }: { onClose: () => void }) {
                 maxLength={30}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="bg-white border border-1 border-black px-3 py-2 h-full text-md text-black focus:outline-none w-full font-fredoka"
+                className="bg-white border border-black px-3 py-2 h-full text-md text-black focus:outline-none w-full font-fredoka"
                 required
             />
             
             {/* COLORSS!!! */}
-            <div className="flex items-center h-full w-[170px] flex-shrink-0 border border-black bg-white select-text">
+            <div className="flex items-center h-full w-42.5 shrink-0 border border-black bg-white select-text">
             
             <div 
-                className="relative w-[45px] h-full cursor-pointer transition-colors duration-150 flex-shrink-0"
+                className="relative w-11.25 h-full cursor-pointer transition-colors duration-150 shrink-0"
                 style={{ backgroundColor: color.length === 7 ? color : '#ffffff' }}
             >
                 <input 
@@ -183,7 +183,7 @@ export default function Letters({ onClose }: { onClose: () => void }) {
                     })()
                 }}
 
-                ><div className="w-[20px] h-[20px]"
+                ><div className="w-5 h-5"
                   style={{
                     backgroundColor: 'currentColor',
                     WebkitMaskImage: 'url(/images/eye-dropper-solid.svg)',
@@ -194,7 +194,7 @@ export default function Letters({ onClose }: { onClose: () => void }) {
                 /></div>
             </div>
 
-            <div className="w-[1px] h-full bg-black flex-shrink-0" />
+            <div className="w-px h-full bg-black shrink-0" />
 
             <input 
                 type="text" 
@@ -231,7 +231,7 @@ export default function Letters({ onClose }: { onClose: () => void }) {
                 <button 
                 type="submit" 
                 disabled={submitting || !username.trim() || !message.trim()}
-                className="w-[170px] tracking-wide bg-red-900 border-red-900 hover:bg-black text-white border-1 border-[var(--pink)] hover:border-black font-bold font-fredoka px-5 py-3 text-lg flex-shrink-0 h-full"
+                className="w-42.5 tracking-wide bg-red-900 hover:bg-black text-white border border-(--pink) hover:border-black font-bold font-fredoka px-5 py-3 text-lg shrink-0 h-full"
                 >
                 {submitting ? 'SHARING...' : 'SHARE'}
                 </button>

@@ -35,21 +35,21 @@ export default function PageComponent() {
   return ( 
   <section className="overflow-hidden h-full flex flex-col justify-center items-center pt-5 px-5 sm:p-10 gap-10 lg:gap-16 overflow-x-hidden min-h-screen relative">
 
-    <div className="w-full max-w-[60rem] bg-white border-4 border-black shadow-[-8px_8px_0px_0px_black] sm:shadow-[-12px_12px_0px_0px_black] rounded-lg overflow-hidden flex flex-col">
+    <div className="w-full max-w-240 bg-white border-4 border-black shadow-[-8px_8px_0px_0px_black] sm:shadow-[-12px_12px_0px_0px_black] rounded-lg overflow-hidden flex flex-col">
       <div className="w-full bg-black text-white px-4 py-2 font-dos text-sm tracking-wide select-none">
         Resume-Hertz-Lenin-C.-Miscreola-GENERAL.PDF
       </div>
       
       <div 
         ref={containerRef}
-        className="w-full p-2 bg-[#f0f0f0] overflow-x-auto flex justify-center min-h-[500px]"
+        className="w-full p-2 bg-[#f0f0f0] overflow-x-auto flex justify-center min-h-125"
       >
         <ResumePDF resumePath={resumePath} containerWidth={containerWidth} />
       </div>
     </div>
 
     {/* FOR ICONS */}
-    <div className="w-full max-w-[40rem] flex flex-wrap gap-4 items-center justify-center mt-2">
+    <div className="w-full max-w-160 flex flex-wrap gap-4 items-center justify-center mt-2">
       <svg className="absolute w-0 h-0" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="img-black-outline" x="-20%" y="-20%" width="140%" height="140%" colorInterpolationFilters="sRGB">
@@ -72,13 +72,13 @@ export default function PageComponent() {
     <a 
       href={resumePath} 
       download="Resume-Hertz-Lenin-C.-Miscreola-GENERAL.pdf" 
-      className="group fixed top-5 right-18 lg:top-5 lg:right-25 w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] z-50 cursor-pointer select-none"
+      className="group fixed top-5 right-18 lg:top-5 lg:right-25 w-7.5 h-7.5 lg:w-12.5 lg:h-12.5 z-50 cursor-pointer select-none"
     >
       <img 
         src="/images/about/icons/download.png" 
         alt=""
         aria-hidden="true"
-        className="hidden md:block absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-[6px] translate-y-[6px]"
+        className="hidden md:block absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-1.5 translate-y-1.5"
         style={{ filter: 'url(#img-black-shadow)' }}
       />
 
@@ -91,12 +91,12 @@ export default function PageComponent() {
     </a>
 
     {/* HOME BUTTON */}
-    <TransitionLink backgroundStyle="background-space" href="/" className="group fixed top-5 right-7 lg:top-5 lg:right-5 w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] z-50 cursor-pointer select-none">
+    <TransitionLink backgroundStyle="background-space" href="/" className="group fixed top-5 right-7 lg:top-5 lg:right-5 w-7.5 h-7.5 lg:w-12.5 lg:h-12.5 z-50 cursor-pointer select-none">
       <img 
         src="/images/about/icons/tent.png" 
         alt=""
         aria-hidden="true"
-        className="hidden md:block absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-[6px] translate-y-[6px]"
+        className="hidden md:block absolute inset-0 w-full h-full object-contain pointer-events-none -translate-x-1.5 translate-y-1.5"
         style={{ filter: 'url(#img-black-shadow)' }}
       />
 
